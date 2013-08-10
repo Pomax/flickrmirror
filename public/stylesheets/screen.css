@@ -1,0 +1,78 @@
+html. body {
+  margin: 0;
+  padding: 0;
+  background: #f00;
+  height: 100%;
+  font-size: 10px;
+  line-height: 10px;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+.header {
+  border-bottom: 1px solid #000;
+  color: #0063c8;
+}
+.header h1 {
+  font-size: 300%;
+  line-height: 1em;
+  margin-bottom: -0.2em;
+}
+.header .highlight {
+  color: #ff0084;
+}
+.stream {
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  width: 75%;
+}
+.stream .entry {
+  position: relative;
+  display: inline-block;
+  height: 400px;
+  width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 1em;
+}
+.stream .entry figcaption {
+  font-style: italic;
+  opacity: 0.3;
+}
+.stream .entry h1 {
+  line-height: 1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+.stream .entry p {
+  text-align: justify;
+}
+.stream .entry footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  box-shadow: 0 0 60px 50px #fff;
+}
+.side {
+  display: inline-block;
+  vertical-align: top;
+  width: 10%;
+  text-align: center;
+}
+.side.left {
+  float: left;
+}
+.side.right {
+  float: right;
+}
+.collection img,
+.set img {
+  border: 1px solid #000;
+}

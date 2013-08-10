@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% include "header.html" %}
+  <div>
+    <div class="left side">
+      <p>Collections</p>
+      {% for key in collection_keys %}
+      {% set collection = collections[key] %}
+      {% include "stream_collection.html" %}
+      {% endfor %}
+    </div>
+    <div class="stream">
+    	{% for key in photo_keys %}
+      {% set photo = photos[key] %}
+      {% include "stream_entry.html" %}
+      {% endfor %}
+    </div>
+    <div class="right side">
+      <p>Sets</p>
+      {% for key in photoset_keys %}
+      {% set photoset = photosets[key] %}
+      {% include "stream_set.html" %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
