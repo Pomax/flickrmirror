@@ -5,6 +5,13 @@ serve it yourself instead, based on the data that Flickr has.
 
 Like, say, you don't like the new design. Make your own!
 
+## install
+
+Clone the repo, ensure you have Node installed (head over
+to http://nodejs.org if you don't), then run `npm install`
+in the flickrmirror directory. After that, the main run
+command is just `node app`.
+
 ## downsync
 
 ```
