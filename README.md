@@ -13,7 +13,7 @@ in the flickrmirror directory.
 
 After that, rename the `env.dist` file to `.env`, open it
 in a text editor, and input your Flickr API key and secret.
-I you do not have a Flickr API key, you can trivially get a
+If you do not have a Flickr API key, you can trivially get a
 non-commercial one for free by going to
 
   http://www.flickr.com/services/apps/create/apply
