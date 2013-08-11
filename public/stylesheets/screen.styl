@@ -21,11 +21,14 @@ body
   .highlight
     color #ff0084
 
+.content
+  position relative
+
 .stream
+  position absolute
+  margin 0 200px
+  top 0
   text-align center
-  display inline-block
-  vertical-align top
-  width: 75%;
   .entry
     figcaption
       font-style italic
@@ -54,14 +57,15 @@ body
       box-shadow 0 0 60px 50px white
 
 .side
-  display inline-block
-  vertical-align top
-  width 10%
+  position absolute
+  width 200px
+  top 0
+
   text-align center
   &.left
-    float left
+    left 0
   &.right
-    float right
+    right 0
 
 .collection, .set
   img

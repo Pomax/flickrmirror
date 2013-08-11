@@ -23,11 +23,14 @@ body {
 .header .highlight {
   color: #ff0084;
 }
+.content {
+  position: relative;
+}
 .stream {
+  position: absolute;
+  margin: 0 200px;
+  top: 0;
   text-align: center;
-  display: inline-block;
-  vertical-align: top;
-  width: 75%;
 }
 .stream .entry {
   position: relative;
@@ -61,16 +64,16 @@ body {
   box-shadow: 0 0 60px 50px #fff;
 }
 .side {
-  display: inline-block;
-  vertical-align: top;
-  width: 10%;
+  position: absolute;
+  width: 200px;
+  top: 0;
   text-align: center;
 }
 .side.left {
-  float: left;
+  left: 0;
 }
 .side.right {
-  float: right;
+  right: 0;
 }
 .collection img,
 .set img {
