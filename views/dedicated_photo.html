@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% include "header.html" %}
+  <div class="content">
+    <div class="left side">
+      <p>...</p>
+    </div>
+    <div class="photo">
+
+      <h1>{{ photo.title._content }}</h1>
+      <figure>
+        <a href="/images/original/{{ photo.id }}.{{ photo.originalformat }}"><img src="/images/medium/{{ photo.id }}.jpg"></a>
+        <figcaption>{{ photo.dates.taken }}</figcaption>
+      </figure>
+
+      {% if photo.location %}
+      <section>
+        <a href="https://maps.google.com/?ll={{ photo.location.latitude }},{{ photo.location.longitude }}">on the map</a>
+      <section>
+      {% endif %}
+
+      <section>
+        <p>{{ photo.description._content }}</p>
+      </section>
+      {% include "license.html" %}
+
+    </div>
+    <div class="right side">
+      ...
+    </div>
+  </div>
+{% endblock %}
