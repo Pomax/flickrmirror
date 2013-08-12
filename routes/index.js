@@ -2,45 +2,80 @@
  * route rendering object
  */
 module.exports = function(app, informationArchitecture) {
+
+  var setSize = 18,
+      ia = informationArchitecture;
+
+  ia.enrich = function(options) {
+    var enriched = {};
+    Object.keys(ia).forEach(function(key) {
+      enriched[key] = ia[key];
+    });
+    Object.keys(options).forEach(function(key) {
+      enriched[key] = options[key];
+    });
+    return enriched;
+  };
+
   return {
     /**
      * Index page
      */
     index: function(req, res) {
-      res.render("index.html", informationArchitecture);
+      var page = parseInt(req.query.page) || 1,
+          startpage = page -1,
+          start = startpage * setSize,
+          endpage = page,
+          end = endpage * setSize,
+          lastpage = (ia.photo_keys.length / setSize) | 0,
+          navpages = [],
+          n;
+      for(n = Math.max(startpage-3,2)|0; n<Math.min(endpage+4,lastpage-1); n++) {
+        navpages.push(n);
+      }
+      res.render("index.html", ia.enrich({
+        page: page,
+        start: start,
+        end: end,
+        lastpage: lastpage,
+        navpages: navpages
+      }));
     },
 
     /**
      * Set view
      */
     photo: function(req, res) {
-      var photos = informationArchitecture.photos,
+      var photos = ia.photos,
           photo = photos[res.locals.photo];
-      informationArchitecture.photo = photo;
-      res.render("dedicated_photo.html", informationArchitecture);
-      delete informationArchitecture.photo;
+      res.render("dedicated_photo.html", ia.enrich({
+        photo: photo
+      }));
+      delete ia.photo;
     },
 
     /**
      * Set view
      */
     set: function(req, res) {
-      var photosets = informationArchitecture.photosets,
+      var photosets = ia.photosets,
           photoset = photosets[res.locals.set];
-      informationArchitecture.photoset = photoset;
-      res.render("dedicated_set.html", informationArchitecture);
-      delete informationArchitecture.photoset;
+      res.render("dedicated_set.html", ia.enrich({
+        photoset: photoset
+      }));
+      delete ia.photoset;
     },
 
     /**
      * Collection view
      */
     collection: function(req, res) {
-      var collections = informationArchitecture.collections,
+      var collections = ia.collections,
           collection = collections[res.locals.collection];
-      informationArchitecture.collection = collection;
-      res.render("dedicated_collection.html", informationArchitecture);
-      delete informationArchitecture.collection;
+      res.render("dedicated_collection.html", ia.enrich({
+        collection: collection
+      }));
+      delete ia.collection;
     },
 
     /**

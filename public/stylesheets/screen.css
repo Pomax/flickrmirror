@@ -18,7 +18,9 @@ body {
 .header h1 {
   font-size: 300%;
   line-height: 1em;
-  margin-bottom: -0.2em;
+  margin-bottom: -0.1em;
+  margin-left: 0.2em;
+  font-family: helvetica;
 }
 .header .highlight {
   color: #ff0084;
@@ -27,21 +29,28 @@ body {
   position: relative;
 }
 .stream {
-  position: absolute;
-  margin: 0 200px;
-  top: 0;
   text-align: center;
+  width: 900px;
+  margin: auto;
 }
 .stream .entry {
   position: relative;
   display: inline-block;
+  width: 240px;
   height: 400px;
-  width: 300px;
+  vertical-align: top;
   text-overflow: ellipsis;
   overflow: hidden;
   margin: 1em;
 }
-.stream .entry figcaption {
+.stream .entry figure {
+  margin: 0;
+}
+.stream .entry figure h4 {
+  font-weight: bold;
+  margin: 0;
+}
+.stream .entry figure figcaption {
   font-style: italic;
   opacity: 0.3;
 }
@@ -63,10 +72,42 @@ body {
   background: #fff;
   box-shadow: 0 0 60px 50px #fff;
 }
+.stream .pages {
+  list-style: none;
+}
+.stream .pages li {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid rgba(0,0,0,0.2);
+  color: #0063c8;
+}
+.stream .pages li a {
+  text-decoration: none;
+}
+.stream .pages li a:visited {
+  color: inherit;
+}
+.stream .pages li.current {
+  font-weight: bold;
+  color: #ff0084;
+}
+.stream .pages li:hover {
+  background: #0063dc;
+  color: #fff;
+}
+.stream .pages li.noborder {
+  border: none;
+}
 .side {
   position: absolute;
   width: 200px;
   top: 0;
+  background: #f4f4f4;
+  padding: 3em 0em;
+  margin: 2em;
   text-align: center;
 }
 .side.left {
@@ -78,4 +119,11 @@ body {
 .collection img,
 .set img {
   border: 1px solid #000;
+}
+.footernotice {
+  border-top: 1px solid #000;
+  padding-top: 0.5em;
+  background: #f4f4f4;
+  line-height: 2em;
+  text-align: center;
 }

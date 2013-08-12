@@ -17,7 +17,9 @@ body
   h1
     font-size 300%
     line-height 1em
-    margin-bottom: -0.2em
+    margin-bottom: -0.1em
+    margin-left: 0.2em
+    font-family helvetica
   .highlight
     color #ff0084
 
@@ -25,14 +27,18 @@ body
   position relative
 
 .stream
-  position absolute
-  margin 0 200px
-  top 0
   text-align center
+  width 900px
+  margin: auto
   .entry
-    figcaption
-      font-style italic
-      opacity 0.3
+    figure
+      margin 0
+      h4
+        font-weight bold
+        margin 0
+      figcaption
+        font-style italic
+        opacity 0.3
     position relative
     h1
       line-height 1em
@@ -40,9 +46,11 @@ body
       text-overflow ellipsis
       white-space nowrap
       width 100%
+
     display inline-block
+    width 240px
     height 400px
-    width 300px
+    vertical-align top
     text-overflow ellipsis
     overflow hidden
     margin 1em
@@ -55,11 +63,36 @@ body
       right 0
       background white
       box-shadow 0 0 60px 50px white
+  .pages
+    list-style none
+    li
+      display inline-block
+      width 20px
+      height 20px
+      text-align center
+      vertical-align middle
+      border 1px solid rgba(0,0,0,0.2)
+      a
+        text-decoration none
+      a:visited
+        color inherit
+      color #0063c8
+      &.current
+        font-weight bold
+        color #ff0084
+      &:hover
+        background #0063dc
+        color white
+      &.noborder
+        border none
 
 .side
   position absolute
   width 200px
   top 0
+  background #f4f4f4
+  padding 3em 0em
+  margin 2em
 
   text-align center
   &.left
@@ -70,3 +103,10 @@ body
 .collection, .set
   img
     border 1px solid black
+
+.footernotice
+  border-top 1px solid black
+  padding-top 0.5em
+  background #f4f4f4
+  line-height 2em
+  text-align center
