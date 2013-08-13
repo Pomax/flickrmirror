@@ -33,6 +33,7 @@ if(argv.downsync) {
 
 // No downsync: run server using IA
 var app = expressApp;
+app.disable('x-powered-by');
 app.use(express.compress());
 app.use(express.bodyParser());
 app.use(express.cookieParser());
