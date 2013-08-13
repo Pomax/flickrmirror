@@ -46,6 +46,22 @@ module.exports = function(app, informationArchitecture) {
      */
     index: function(req, res) {
       var options = buildOptions(req, ia.photo_keys);
+      (function buildCollectionThumbnails(){
+        Object.keys(ia.collections).forEach(function(collection) {
+          collection = ia.collections[collection];
+          var thumbnails = [];
+          while(thumbnails.length < 12) {
+            collection.set.forEach(function(set) {
+              set = ia.photosets[set.id];
+              var photos = set.photos,
+                  len = photos.length,
+                  idx = (Math.random() * len) | 0;
+              thumbnails.push(photos[idx]);
+            });
+          }
+          collection.thumbnails = thumbnails.slice(0,12);
+        });
+      }());
       res.render("index.html", ia.enrich(options));
     },
 

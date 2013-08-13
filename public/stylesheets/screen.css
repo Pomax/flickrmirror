@@ -161,3 +161,19 @@ body {
   overflow: hidden;
   text-align: left;
 }
+.collection div.thumbnails {
+  width: 112px;
+  margin: auto;
+  background: #fff;
+  line-height: 0;
+}
+.collection div.thumbnails img.collection_thumb {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  margin: 0.5px;
+}
+.collection a {
+  text-decoration: none;
+  margin: 0;
+}
