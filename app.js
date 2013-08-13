@@ -24,11 +24,14 @@ var argv = (function() {
       return env;
     }(express)),
     stylus = require("stylus"),
-    Flickr = require("flickrapi");
+    Flickr = require("flickrapi"),
+    FlickrOptions = env.get("flickr"),
+    user = FlickrOptions.user_name,
+    userdir = "userdata/" + user;
 
 // Authenticate with flickr and then download everything.
 if(argv.downsync) {
-  return Flickr.authenticate(env.get("flickr"), Flickr.downsync);
+  return Flickr.authenticate(FlickrOptions, Flickr.downsync(userdir));
 }
 
 // No downsync: run server using IA
@@ -40,10 +43,10 @@ app.use(express.cookieParser());
 app.use(express.methodOverride());
 app.use(stylus.middleware({ src: "./public" }));
 app.use(express.static("public"));
-app.use(express.static("data"));
+app.use(express.static(userdir));
 
 // server routes
-var routes = require("./routes")(app, Flickr.loadLocally());
+var routes = require("./routes")(FlickrOptions.user_name, app, Flickr.loadLocally(userdir));
 app.get('/', routes.index);
 app.get('/photos/:photo', routes.photo);
 app.get('/sets/:set', routes.set);

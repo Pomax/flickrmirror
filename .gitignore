@@ -1,3 +1,5 @@
 node_modules
+public/stylesheets/*.css
 data
+userdata
 .env

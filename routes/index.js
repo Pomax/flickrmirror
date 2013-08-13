@@ -1,10 +1,11 @@
 /**
  * route rendering object
  */
-module.exports = function(app, informationArchitecture) {
-
+module.exports = function(username, app, informationArchitecture) {
   var setSize = 18,
       ia = informationArchitecture;
+
+  ia.user_name = username || "";
 
   ia.enrich = function(options) {
     var enriched = {};
