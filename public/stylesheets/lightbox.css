@@ -1,0 +1,36 @@
+html,
+body,
+.header,
+.content {
+  background: #000;
+  color: #fff;
+}
+.content {
+  text-align: center;
+}
+.content img {
+  max-width: 95%;
+}
+.header {
+  border-bottom: 1px solid #fff;
+  margin-bottom: 2em;
+  color: #0063c8;
+}
+.header h1 {
+  font-size: 300%;
+  line-height: 1em;
+  margin-bottom: -0.1em;
+  margin-left: 0.2em;
+  font-family: helvetica;
+}
+.header .highlight {
+  color: #ff0084;
+}
+.footernotice {
+  background: #222;
+  color: #999;
+}
+a {
+  color: #668;
+  text-decoration: none;
+}

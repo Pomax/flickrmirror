@@ -17,29 +17,36 @@ module.exports = function(app, informationArchitecture) {
     return enriched;
   };
 
+  var buildOptions = function(req, container) {
+    var page = parseInt(req.query.page) || 1,
+        startpage = page - 1,
+        start = startpage * setSize,
+        endpage = page,
+        end = endpage * setSize,
+        lastpage = Math.ceil(container.length / setSize) | 0,
+        navpages = [],
+        n;
+    for(n = Math.max(startpage-3,2); n<=Math.min(endpage+3,lastpage-1); n++) {
+      navpages.push(n);
+    }
+    return {
+      page: page,
+      start: start,
+      startpage: startpage,
+      end: end,
+      endpage: endpage,
+      lastpage: lastpage,
+      navpages: navpages
+    };
+  }
+
   return {
     /**
      * Index page
      */
     index: function(req, res) {
-      var page = parseInt(req.query.page) || 1,
-          startpage = page -1,
-          start = startpage * setSize,
-          endpage = page,
-          end = endpage * setSize,
-          lastpage = (ia.photo_keys.length / setSize) | 0,
-          navpages = [],
-          n;
-      for(n = Math.max(startpage-3,2)|0; n<Math.min(endpage+4,lastpage-1); n++) {
-        navpages.push(n);
-      }
-      res.render("index.html", ia.enrich({
-        page: page,
-        start: start,
-        end: end,
-        lastpage: lastpage,
-        navpages: navpages
-      }));
+      var options = buildOptions(req, ia.photo_keys);
+      res.render("index.html", ia.enrich(options));
     },
 
     /**
@@ -59,10 +66,10 @@ module.exports = function(app, informationArchitecture) {
      */
     set: function(req, res) {
       var photosets = ia.photosets,
-          photoset = photosets[res.locals.set];
-      res.render("dedicated_set.html", ia.enrich({
-        photoset: photoset
-      }));
+          photoset = photosets[res.locals.set],
+          options = buildOptions(req, photoset.photos);
+      options.photoset = photoset;
+      res.render("dedicated_set.html", ia.enrich(options));
       delete ia.photoset;
     },
 

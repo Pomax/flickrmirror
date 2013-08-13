@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
 {% block body %}
-  {% include "header.html" %}
+  <link rel="stylesheet" href="/stylesheets/lightbox.css">
   <div class="content">
     <div class="photo">
 
+      {% set file = photo.id + "." + photo.originalformat %}
       <h1>{{ photo.title._content }}</h1>
       <figure>
-        <a href="/images/original/{{ photo.id }}.{{ photo.originalformat }}"><img src="/images/medium/{{ photo.id }}.jpg"></a>
+        <a href="/images/original/{{ file }}"><img src="/images/original/{{ file }}"></a>
         <figcaption>{{ photo.dates.taken }}</figcaption>
       </figure>
 

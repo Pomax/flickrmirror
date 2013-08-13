@@ -5,5 +5,9 @@
     <title>My photographs</title>
     <link rel="stylesheet" href="/stylesheets/screen.css">
   </head>
-  <body>{% block body %}{% endblock %}</body>
+  <body>
+    {% include "header.html" %}
+  	{% block body %}{% endblock %}
+    {% include "footer.html" %}
+  </body>
 </html>

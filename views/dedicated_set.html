@@ -1,4 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
 <div class="set">
-  <h4>{{ photoset.title._content }}</h4>
-  <img src="/images/square/small/{{ photoset.primary }}.jpg">
+  <div class="left side infobox">
+    <img src="/images/square/medium/{{ photoset.primary }}.jpg">
+    <h2>{{ photoset.title._content }}</h2>
+    <p>{{ photoset.description._content }}</p>
+  </div>
+
+  <div class="photos">
+  {% for id in photoset.photos.slice(start, end) %}
+    {% set photo = photos[id] %}
+    {% include "stream_photo.html" %}
+  {% endfor %}
+  {% include "pages.html" %}
+  </div>
+
 </div>
+{% endblock %}

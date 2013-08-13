@@ -1,24 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-  {% include "header.html" %}
   <div class="content">
-
-    <div class="stream">
-    	{% for key in photo_keys.slice(start, end) %}
-      {% set photo = photos[key] %}
-      {% include "stream_photo.html" %}
-      {% endfor %}
-
-      <ul class="pages">
-        <li{% if page == 1 %} class="current"{% endif %}><a href="?page=1">1</a></li>
-        {% for n in navpages %}
-        {% if loop.first %}{% if n > 2 %}<li class="noborder">...</li>{% endif %}{% endif %}
-        <li{% if n == page %} class="current"{% endif %}><a href="?page={{ n }}">{{ n }}</a></li>
-        {% if loop.last %}{% if n < lastpage - 1 %}<li class="noborder">...</li>{% endif %}{% endif %}
-        {% endfor %}
-        <li{% if page == lastpage %} class="current"{% endif %}><a href="?page={{ lastpage }}">{{ lastpage }}</a></li>
-      </ul>
-    </div>
 
     <div class="right side">
       {% for key in collection_keys %}
@@ -27,7 +9,13 @@
       {% endfor %}
     </div>
 
-  </div>
+    <div class="stream">
+    	{% for key in photo_keys.slice(start, end) %}
+      {% set photo = photos[key] %}
+      {% include "stream_photo.html" %}
+      {% endfor %}
+      {% include "pages.html" %}
+    </div>
 
-  {% include "footer.html" %}
+  </div>
 {% endblock %}

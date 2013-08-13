@@ -13,6 +13,7 @@ body {
 }
 .header {
   border-bottom: 1px solid #000;
+  margin-bottom: 2em;
   color: #0063c8;
 }
 .header h1 {
@@ -25,15 +26,24 @@ body {
 .header .highlight {
   color: #ff0084;
 }
+.header a {
+  text-decoration: none;
+}
+.header a:visited {
+  color: inherit;
+}
 .content {
   position: relative;
-}
-.stream {
   text-align: center;
-  width: 900px;
+}
+.stream,
+.set>.photos {
+  text-align: center;
+  width: 960px;
   margin: auto;
 }
-.stream .entry {
+.stream .entry,
+.set>.photos .entry {
   position: relative;
   display: inline-block;
   width: 240px;
@@ -43,28 +53,34 @@ body {
   overflow: hidden;
   margin: 1em;
 }
-.stream .entry figure {
+.stream .entry figure,
+.set>.photos .entry figure {
   margin: 0;
 }
-.stream .entry figure h4 {
+.stream .entry figure h4,
+.set>.photos .entry figure h4 {
   font-weight: bold;
   margin: 0;
 }
-.stream .entry figure figcaption {
+.stream .entry figure figcaption,
+.set>.photos .entry figure figcaption {
   font-style: italic;
   opacity: 0.3;
 }
-.stream .entry h1 {
+.stream .entry h1,
+.set>.photos .entry h1 {
   line-height: 1em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 100%;
 }
-.stream .entry p {
+.stream .entry p,
+.set>.photos .entry p {
   text-align: justify;
 }
-.stream .entry footer {
+.stream .entry footer,
+.set>.photos .entry footer {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -72,10 +88,12 @@ body {
   background: #fff;
   box-shadow: 0 0 60px 50px #fff;
 }
-.stream .pages {
+.stream .pages,
+.set>.photos .pages {
   list-style: none;
 }
-.stream .pages li {
+.stream .pages li,
+.set>.photos .pages li {
   display: inline-block;
   width: 20px;
   height: 20px;
@@ -84,37 +102,42 @@ body {
   border: 1px solid rgba(0,0,0,0.2);
   color: #0063c8;
 }
-.stream .pages li a {
+.stream .pages li a,
+.set>.photos .pages li a {
+  color: inherit;
   text-decoration: none;
 }
-.stream .pages li a:visited {
+.stream .pages li a:visited,
+.set>.photos .pages li a:visited {
   color: inherit;
 }
-.stream .pages li.current {
+.stream .pages li.current,
+.set>.photos .pages li.current {
   font-weight: bold;
   color: #ff0084;
 }
-.stream .pages li:hover {
+.stream .pages li:hover,
+.set>.photos .pages li:hover {
   background: #0063dc;
   color: #fff;
 }
-.stream .pages li.noborder {
+.stream .pages li.noborder,
+.set>.photos .pages li.noborder {
   border: none;
 }
 .side {
-  position: absolute;
   width: 200px;
-  top: 0;
   background: #f4f4f4;
   padding: 3em 0em;
   margin: 2em;
+  vertical-align: top;
   text-align: center;
 }
 .side.left {
-  left: 0;
+  float: left;
 }
 .side.right {
-  right: 0;
+  float: right;
 }
 .collection img,
 .set img {
@@ -126,4 +149,15 @@ body {
   background: #f4f4f4;
   line-height: 2em;
   text-align: center;
+}
+.collection {
+  text-align: center;
+}
+.collection .collection_set {
+  display: inline-block;
+  width: 240px;
+  height: 400px;
+  vertical-align: top;
+  overflow: hidden;
+  text-align: left;
 }
