@@ -6,22 +6,22 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+
+    <h1 style="color: red">stub file. Still working on a nicely streamlined install process</h1>
+
     <header>
       <h1>Setting up a FlickrMirror</h1>
-      <h3>using <a href="http://github.com/Pomax/FlickrMirror">flickrmirror</a>.</h3>
+      <h3>using <a href="http://github.com/Pomax/FlickrMirror">flickrmirror</a> (perhaps somewhat obviously).</h3>
     </header>
 
     <article>
-      <header>
-        <h2>Let's set up a mirror</h2>
-      </header>
+      <h2>Let's set up a mirror</h2>
 
       <p>We'll need to do the following things:</p>
 
       <ol>
-        <li>have a <code>git</code> client (<a href="http://github.com">github</a> has one for your OS if you don't already)</li>
         <li>install nodejs if you haven't already, from <a href="http://nodejs.org">nodejs.org</a></li>
-        <li>clone <a href="http://github.com/Pomax/FlickrMirror">flickrmirror</a> from github</li>
+        <li>download <a href="https://github.com/Pomax/flickrmirror/archive/master.zip">flickrmirror</a> and unzip it. It will make a directory called "flickrmirror-master" when you unpack it, so don't make a new dir called "flickrmirror" and then unpack it in that =)</li>
         <li>have a Flickr API key and secret. If you don't have these, a non-commercial API key is free over at <a href="http://www.flickr.com/services/apps/create/apply">Flickr's API page</a>.</li>
       </ol>
 
@@ -29,33 +29,35 @@
 
       <section>
         <h3>make sure all the dependencies are installed</h3>
-        <pre>flickrmirror$> npm install</pre>
+        <pre>$:flickrmirror-master> npm install</pre>
       </section>
 
       <section>
         <h3>set up an .env file</h3>
-        <pre>flickrmirror$> copy env.dist .env</pre>
+        <pre>$:flickrmirror-master> copy env.dist .env</pre>
         <p>open up this .env file, and drop in your Flickr API key and secret</p>
         <p>You can also fill in the screen name you want to use, but this is used only once the mirror has been set up, and isn't technically used for fetching data from Flickr.</p>
       </section>
 
       <section>
         <h3>first-time run</h3>
-        <pre>flickrmirror$> node app --downsync</pre>
-        <p>This will start up the downsycn process, but the app, with your API key, so really YOUR app,
+        <pre>$:flickrmirror-master> node app --downsync</pre>
+        <p>This will start up the downsycn process, but the app (with your API key, so really YOUR app)
         now needs to be authorised to access all your data.</p>
         <p>...</p>
       </section>
 
       <section>
         <h3>real run</h3>
-        <pre>flickrmirror$> node app --downsync</pre>
-        <p>Now sit back: all your stuff is download to your own drive for you do do with as you please.</p>
+        <pre>$:flickrmirror-master> node app --downsync</pre>
+        <p>Now sit back: all your stuff is downloading to your own drive for you do do with as you please.</p>
       </section>
 
+      <h2>Let's serve that mirror up!</h2>
+
       <section>
-        <h3>serving up your mirror</h3>
-        <pre>flickrmirror$> node app</pre>
+        <h3>hosting your mirror</h3>
+        <pre>$:flickrmirror-master> node app</pre>
         <p>Open a browser and point it to <a href="http://localhost:3000">localhost:3000</a> and presto.
         Your own mirror of your own Flickr data.</p>
       </section>
