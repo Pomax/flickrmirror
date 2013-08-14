@@ -1,1 +1,49 @@
 /* minimalist screen style */
+html. body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  padding: 1em;
+}
+header h1 {
+  font-size: 250%;
+  margin-top: -0.25em;
+}
+h1, h2, h3, h4 {
+  color: #0063c8;
+  font-weight: bold;
+  font-family: helvetica;
+}
+h3, h4 {
+  color: #ff0084;
+  font-weight: normal;
+}
+h4 {
+  color: black;
+}
+a {
+	text-decoration: none;
+}
+pre {
+  display: block;
+  background: #333;
+  color: #FEE;
+  padding: 0.25em;
+}
+code {
+  font-style: monospace;
+  background: #EEE;
+  font-weight: bold;
+}
+img {
+  border: 1px solid rgba(0,0,0,0.3);
+}
+footer {
+  position:absolute;
+  left: 0;
+  right: 0;
+  border-top:1px solid rgba(0,0,0,0.3);
+  padding: 2em;
+  padding-top: 0;
+}

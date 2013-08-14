@@ -6,16 +6,14 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-
-    <h1 style="color: red">stub file. Still working on a nicely streamlined install process</h1>
-
     <header>
       <h1>Setting up a FlickrMirror</h1>
-      <h3>using <a href="http://github.com/Pomax/FlickrMirror">flickrmirror</a> (perhaps somewhat obviously).</h3>
+      <h3>using <a href="http://github.com/Pomax/FlickrMirror">flickrmirror</a> (perhaps somewhat obviously)</h3>
+      <h4>By <a href="http://twitter.com/TheRealPomax">Pomax</a></h4>
     </header>
 
     <article>
-      <h2>Let's set up a mirror</h2>
+      <h1>Let's set up a mirror</h1>
 
       <p>We'll need to do the following things:</p>
 
@@ -35,7 +33,7 @@
       <section>
         <h3>set up an .env file</h3>
         <pre>$:flickrmirror-master> copy env.dist .env</pre>
-        <p>open up this .env file, and drop in your Flickr API key and secret</p>
+        <p>open up this <code>.env</code> file, and drop in your Flickr API key and secret.</p>
         <p>You can also fill in the screen name you want to use, but this is used only once the mirror has been set up, and isn't technically used for fetching data from Flickr.</p>
       </section>
 
@@ -62,17 +60,12 @@ export FLICKR_ACCESS_TOKEN="1234567890abcdef1-234567890abcdef1"
 export FLICKR_ACCESS_TOKEN_SECRET="1234567890abcdef"
 
 Fetching the Flickr API method information architecture.
-  fetching method signatures [=-------------------------] 1%^C
+  fetching method signatures [========-------------------------] 10%
 </pre>
         <p>The downsync process will grab all the methods that Flickr exposes, first, after which
         it will start to download all your Flickr data. While it is doing so, it's a good idea to
-        copy-paste those three export variables into your .env file.</p>
-      </section>
-
-      <section>
-        <h3>real run</h3>
-        <pre>$:flickrmirror-master> node app --downsync</pre>
-        <p>Now sit back: all your stuff is downloading to your own drive for you do do with as you please.</p>
+        copy-paste those three export variables into your <code>.env</code> file.</p>
+        <p>Sit back: all your stuff is downloading to your own drive for you do do with as you please.</p>
       </section>
 
       <h2>Let's serve that mirror up!</h2>
@@ -80,36 +73,116 @@ Fetching the Flickr API method information architecture.
       <section>
         <h3>hosting your mirror</h3>
         <pre>$:flickrmirror-master> node app</pre>
-        <p>Open a browser and point it to <a href="http://localhost:3000">localhost:3000</a> and presto.
+        <p>Open a browser and point it to <a href="http://localhost:3000">http://localhost:3000</a> and presto.
         Your own mirror of your own Flickr data.</p>
+      </section>
+
+      <h2>The default look</h2>
+
+      <section>
+        <p>The default style is similar to the "old style" Flickr. It uses
+          the "photostream + collections" view, mostly because that's what
+          I was using.</p>
+
+        <h3>The initial view</h3>
+        <figure>
+          <img src="images/example.jpg">
+        </figure>
+
+        <h3>When viewing a collection</h3>
+        <figure>
+          <img src="images/collection.jpg">
+        </figure>
+
+        <h3>When viewing a set</h3>
+        <figure>
+          <img src="images/set.jpg">
+        </figure>
+
+        <h3>When viewing individual photos</h3>
+        <figure>
+          <img src="images/photo.jpg">
+        </figure>
       </section>
 
       <section>
         <h3>Changing the look and feel</h3>
-        <p>nunjucks templates and stylus stylesheets</p>
+        <p>This app uses <a href="http://nunjucks.jlongster.com">nunjucks</a> for templating,
+        and <a href="http://learnboost.github.io/stylus">stylus</a> for less verbose, arguably easier to write stylesheets. The main things of
+        importance are:</p>
+
+        <p><code>./routes/index.js</code> and the route section in <code>./app.js</code>. These
+          set up the routes that the app knows how to take. The <code>parameters</code> section
+          in <code>./routes/index.js</code> lets you add magical variables-from-a-URL functionality
+          so you can add in your own custom route variables.</p>
+
+        <p><code>./views</code> houses all the templates. The main template is <code>layout.html</code>,
+          and the rest kind of extends it with their own body blocks.
+          Just open up <code>layout.html</code> and <code>index.html</code> to get a sense of how
+          stuff works together. All the templating variables come from the <code>res.render</code> calls
+          that you can see in the <code>./routes/index.js</code> file.</p>
+
+        <p><code>./public/stylesheets</code> has some <code>.styl</code> files in it. You don't have
+          to use stylus files, you can use plain CSS, too. You'll be pointing to <code>.css</code> files
+          in your html files anyway: stylus converts the <code>.styl</code> files to <code>.css</code>
+          files when you run the server.</p>
       </section>
 
-      <figure>
-        <img src="images/example.jpg">
-        <figcaption>example mirror</figcaption>
-      </figure>
+      <section>
+        <h3>help, help, I'm stuck on this</h3>
+        <p>Drop me a line. If you're using FlickrMirror, I'll be interested in finding out what works
+          for you, and making it easy for you to do that thing.</p>
+      </section>
 
-      <figure>
-        <img src="images/collection.jpg">
-        <figcaption>example collection</figcaption>
-      <figure>
+      <h2>What's left to do?</h2>
 
-      </figure>
-        <img src="images/set.jpg">
-        <figcaption>example set</figcaption>
-      </figure>
+      <section>
+        <h3>in-browser install</h3>
+        <p>There are no technical reasons not to do the authorisation/mirror
+          process through the browser. The modules are all there, it's just
+          a matter of having the time to implement a nicer experience vs.
+          spending that same time on improving the functionality</p>
+      </section>
 
-      <figure>
-        <img src="images/photo.jpg">
-        <figcaption>example photo</figcaption>
-      </figure>
+      <section>
+        <h3>more data</h3>
+        <p>No videos at the moment</p>
+      </section>
 
+      <section>
+        <h3>more meta data</h3>
+        <p>No comments and photo context yet (which lets us
+          do things like prev/next in photo streams, sets, groups, etc</p>
+      </section>
 
+      <section>
+        <h3>social?</h3>
+        <p>No "contacts" or "favourites" at the moment, so if you want to
+          link through to your friends and family's real flickr pages, or other
+          people's stuff (which flickrmirror won't download) from your mirror,
+          you can't do that right now.</p>
+      </section>
+
+      <h2>This is amazing, how can I help out?</h2>
+
+      <section>
+        <h3>file bugs</h3>
+        <p>Seriously. Use it, find bugs or incompletions, file them
+          over at <a href="http://github.com/Pomax/FlickrMirror/issues">the
+          github repo</a> please. They help.</p>
+      </section>
+
+      <section>
+        <h3>submit pull requests</h3>
+        <p>100% welcome. If you think have the chops to whip up a patch
+          for something that's not in it right now, submit a pull request,
+          and I'll review it, and hopefully merge it in.</p>
+      </section>
     </article>
+
+    <footer>
+      <h2>Contact info</h2>
+      <p>Pomax on IRC (<code>irc.mozilla.org</code> is your best bet) and <a href="http://github.com/Pomax">github</a>, <a href="http://twitter.com/TheRealPomax">TheRealPomax</a> on twitter. Those are your best choices, really.</p>
+    </footer>
   </body>
 </html>
