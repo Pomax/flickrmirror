@@ -43,8 +43,30 @@
         <h3>first-time run</h3>
         <pre>$:flickrmirror-master> node app --downsync</pre>
         <p>This will start up the downsycn process, but the app (with your API key, so really YOUR app)
-        now needs to be authorised to access all your data.</p>
-        <p>...</p>
+        now needs to be authorised to access all your data, so it will pop up a browser for you to
+        allow it access, and will wait for you to input your validation code:</p>
+        <pre>{ oauth_callback_confirmed: 'true',
+  oauth_token: '1234567890123456-7890123456789012',
+  oauth_token_secret: '1234567890123456' }
+prompt: oauth_verifier:
+</pre>
+        <p>the code is a numbers-with-dashes format; copy the code, and then paste it in your console.
+        This will resume the downsync process:</p>
+
+        <pre>prompt: oauth_verifier:  123-456-789
+
+Add the following variables to your environment:
+
+export FLICKR_USER_ID="12345678%40N12"
+export FLICKR_ACCESS_TOKEN="1234567890abcdef1-234567890abcdef1"
+export FLICKR_ACCESS_TOKEN_SECRET="1234567890abcdef"
+
+Fetching the Flickr API method information architecture.
+  fetching method signatures [=-------------------------] 1%^C
+</pre>
+        <p>The downsync process will grab all the methods that Flickr exposes, first, after which
+        it will start to download all your Flickr data. While it is doing so, it's a good idea to
+        copy-paste those three export variables into your .env file.</p>
       </section>
 
       <section>
