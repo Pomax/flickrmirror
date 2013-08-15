@@ -5,11 +5,21 @@ serve it yourself instead, based on the data that Flickr has.
 
 Like, say, you don't like the new design. Make your own!
 
+## human-friendly installation guide
+
+The nicely styled, human-friendly installation guide for
+this project is over at http://pomax.github.io/flickrmirror
+
+The rest of this readme is for people who want to actually
+fork and clone this repo and then work more closely with
+the source code. The effect is the same, but the text makes
+some assumptions about your level of technological know-how.
+
 ## install
 
 Clone the repo, ensure you have Node installed (head over
-to http://nodejs.org if you don't), then run `npm install`
-in the flickrmirror directory.
+to http://nodejs.org if you don't), and run `npm install`
+to install all dependencies.
 
 After that, rename the `env.dist` file to `.env`, open it
 in a text editor, and input your Flickr API key and secret,
@@ -37,6 +47,9 @@ the application, using your API key, to access your Flickr data.
 Authorising will give you a code like "123-456-789", input that
 number (with dashes) in the prompt and then hit enter to continue.
 
+Also make sure to copey over the generated enviroment variables
+to the .env file.
+
 ## running: locally off the downsynced data
 
 ```
@@ -49,7 +62,7 @@ to go to `http://localhost:3000`, you should see your photos.
 
 # Notable packages used
 
-* `flickrapi`, for Flickr syncing
-* `express`, for easy HTTP server work
-* `nunjucks`, for easy templating
-* `stylus`, for easy stylesheets
+* `flickrapi`, https://npmjs.org/package/flickrap, for Flickr syncing
+* `express`, http://expressjs.com, for easy HTTP server work
+* `nunjucks`, http://nunjucks.jlongster.com, for easy templating
+* `stylus`, http://learnboost.github.io/stylus, for easy stylesheets
