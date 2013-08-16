@@ -31,12 +31,49 @@ body
     color #222
 
 .content
+  max-width 1200px
+  margin auto
   position relative
   text-align center
+  .photo
+    width 74%
+  .navs
+    width: 25%
+  .photo, .navs
+    display inline-block
+    vertical-align top
+
+.streamnav
+  font-size 85%
+  line-height 1em
+  background #EEE
+  padding 0.5em
+  padding-top 0.25em
+  margin-bottom 10px
+  a
+    text-decoration none
+    color #ff0084
+  span, img
+    display inline-block
+    margin 0
+    padding 0
+  span
+    width: 25%
+  span + span
+    margin-left 10px
+  img
+    border 1px solid black
+  .prev, .next
+    opacity 0.5
+    &:hover
+      opacity 1
+  p
+    font-family helvetica
+    font-weight bold
 
 .stream, .set>.photos
   text-align center
-  width 960px
+  width 1020px
   margin: auto
   .entry
     figure

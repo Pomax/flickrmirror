@@ -37,6 +37,7 @@ if(argv.downsync) {
 // No downsync: run server using IA
 var app = expressApp;
 app.disable('x-powered-by');
+app.use(express.favicon("public/favicon.png"));
 app.use(express.compress());
 app.use(express.bodyParser());
 app.use(express.cookieParser());
@@ -49,6 +50,7 @@ app.use(express.static(userdir));
 var routes = require("./routes")(FlickrOptions.user_name, app, Flickr.loadLocally(userdir));
 app.get('/', routes.index);
 app.get('/photos/:photo', routes.photo);
+app.get('/photos/:photo/lightbox', routes.lightbox);
 app.get('/sets/:set', routes.set);
 app.get('/collections/:collection', routes.collection);
 

@@ -1,0 +1,16 @@
+{% block streamnav %}
+      <div class="streamnav">
+      	<p>« {{ title }} »</p>
+      	<span class="prev">
+      	  {% if prev %}<a href="/photos/{{ prev.id }}">
+      	  	<img src="/images/square/small/{{ prev.id }}.jpg">
+      	  </a>{% endif %}
+      	</span>
+        <span class="current"><img src="/images/square/small/{{ photo.id }}.jpg"></span>
+      	<span class="next">
+      	  {% if next %}<a href="/photos/{{ next.id }}">
+      	  	<img src="/images/square/small/{{ next.id }}.jpg">
+      	  </a>{% endif %}
+      	</span>
+      </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% block streamnav %}
+  {% set photoset = photosets[setObj.id] %}
+  {% set title = photoset.title._content %}
+  {% set prev = setObj.prev %}
+  {% set next = setObj.next %}
+
+      <div class="streamnav">
+        <p>« <a href="/sets/{{ setObj.id }}">{{ title }}</a> »</p>
+        <span class="next">
+          {% if next %}<a href="/photos/{{ next.id }}">
+            <img src="/images/square/small/{{ next.id }}.jpg">
+          </a>{% endif %}
+        </span>
+        <span class="current"><img src="/images/square/small/{{ photo.id }}.jpg"></span>
+        <span class="prev">
+          {% if prev %}<a href="/photos/{{ prev.id }}">
+            <img src="/images/square/small/{{ prev.id }}.jpg">
+          </a>{% endif %}
+        </span>
+      </div>
+{% endblock %}

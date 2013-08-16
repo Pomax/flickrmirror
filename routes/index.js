@@ -67,12 +67,29 @@ module.exports = function(username, app, informationArchitecture) {
     },
 
     /**
-     * Set view
+     * Photo view
      */
     photo: function(req, res) {
       var photos = ia.photos,
-          photo = photos[res.locals.photo];
+          photo = photos[res.locals.photo],
+          pos = ia.photo_keys.indexOf(photo.id),
+          pkey = pos>0 ? pos-1 : false,
+          nkey = pos<ia.photo_keys.length-1 ? pos +1 : false;
+      if(pkey) { photo.prev = photos[ia.photo_keys[pkey]]; }
+      if(nkey) { photo.next = photos[ia.photo_keys[nkey]]; }
       res.render("dedicated_photo.html", ia.enrich({
+        photo: photo
+      }));
+      delete ia.photo;
+    },
+
+    /**
+     * Photo lightbox view
+     */
+    lightbox: function(req, res) {
+      var photos = ia.photos,
+          photo = photos[res.locals.photo];
+      res.render("lightbox.html", ia.enrich({
         photo: photo
       }));
       delete ia.photo;

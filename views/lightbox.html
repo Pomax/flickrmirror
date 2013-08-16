@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% set file = photo.id + "." + photo.originalformat %}
+  <link rel="stylesheet" href="/stylesheets/lightbox.css">
+  <div class="content">
+    <a href="/images/original/{{ file }}"><img src="/images/original/{{ file }}"></a>
+    {% include "license.html" %}
+  </div>
+{% endblock %}

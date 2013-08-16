@@ -1,13 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
-  <link rel="stylesheet" href="/stylesheets/lightbox.css">
+{% set file = photo.id + "." + photo.originalformat %}
   <div class="content">
     <div class="photo">
-
-      {% set file = photo.id + "." + photo.originalformat %}
       <h1>{{ photo.title._content }}</h1>
       <figure>
-        <a href="/images/original/{{ file }}"><img src="/images/original/{{ file }}"></a>
+        <a href="/photos/{{ photo.id }}/lightbox"><img src="/images/medium/{{ photo.id }}.jpg"></a>
         <figcaption>{{ photo.dates.taken }}</figcaption>
       </figure>
 
@@ -21,7 +19,18 @@
         <p>{{ photo.description._content }}</p>
       </section>
       {% include "license.html" %}
+    </div>
 
+    <div class="navs">
+
+      {% set title = "photostream" %}
+      {% set prev = photo.prev %}
+      {% set next = photo.next %}
+      {% include "streamnav.html" %}
+
+      {% for setObj in photo.sets %}
+        {% include "streamnav2.html" %}
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
