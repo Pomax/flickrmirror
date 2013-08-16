@@ -68,6 +68,22 @@ Fetching the Flickr API method information architecture.
         <p>Sit back: all your stuff is downloading to your own drive for you do do with as you please.</p>
       </section>
 
+      <section>
+        <h3>updating to your latest data on Flickr</h3>
+        <p>Simply rerun the <code>--downsync</code> process to have FlickrMirror download all the new
+          stuff you put on Flickr since the last time you downsynced.</p>
+        <pre>$:flickrmirror-master> node app --downsync</pre>
+      </section>
+
+      <section>
+        <h3>updating from a previous version</h3>
+        <p>Download the latest version of <a href="https://github.com/Pomax/flickrmirror/archive/master.zip">flickrmirror</a> and unpack it to the same place, telling your unpacker to overwrite all older files.
+          Then in the flickrmirror dir, update the dependencies:</p>
+        <pre>$:flickrmirror-master> npm update</pre>
+        <p>You will <strong>NOT</strong> have to update your <code>.env</code> file, just leave that the way it was.</p>
+        <p>Also? done. That's all you need to do to update to the latest version.</p>
+      </section>
+
       <h2>Let's serve that mirror up!</h2>
 
       <section>
