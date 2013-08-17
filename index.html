@@ -87,10 +87,43 @@ Fetching the Flickr API method information architecture.
       <h2>Let's serve that mirror up!</h2>
 
       <section>
-        <h3>hosting your mirror</h3>
+        <h3>locally hosting your mirror</h3>
         <pre>$:flickrmirror-master> node app</pre>
         <p>Open a browser and point it to <a href="http://localhost:3000">http://localhost:3000</a> and presto.
         Your own mirror of your own Flickr data.</p>
+      </section>
+
+      <section>
+        <h3>hosting your mirror "for reals"</h3>
+        <p>You have a choice of hosting services that let you run node.js, but most are a bit more effort
+        than you might like. I went with <a href="https://www.digitalocean.com">Digital Ocean</a>, because
+        unlike most places they have a $5 a month plan, which offers more than I need for my mirror for $60
+        a year, with the best way to interact with your files: ssh</p>
+        <p>Let's pretend you've found your ideal host, letting you run your own processes for cheaps,
+        and you have ssh access to your box. These are the steps required to set up your flickr mirror
+        remotely:</p>
+        <ol>
+          <li>if not already installed, install nodejs/npm using the OS's package manager</li>
+          <li>if not already installed, install git using the OS's package manager</li>
+        </ol>
+        <p>With those dependencies fulfilled, clone the flickrmirror repo, install its npm
+        dependencies, set up your <code>.env</code> and start downsyncing:</p>
+        <pre>$> git clone https://github.com/Pomax/flickrmirror.git
+$> cd flickrmirror
+$> npm install</pre>
+        <p>If you want to use the same <code>.env</code> that you used locally, copy your local
+        <code>.env</code> file over using whatever means your host lets you use (scp, winscp, a web
+        console, what have you). make sure it ends up in the <code>flickrmirror</code> directory!</p>
+        <p>After that, start your downsync process:</p>
+        <pre>$> node app --downsync</pre>
+        <p>if this runs slowly, the downsync process can be run multiple times concurrently, so
+        if you're using an ssh client, simply spawn five of them and run this five times
+        simultaneously.</p>
+        <p>once this is done, you can start your mirror using <code>node app</code>, done!</p>
+        <p>Of course, the level of "done"ness depends on your hosting. With digital ocean all
+        I have to do is make sure the <code>PORT</code> in my <code>.env</code> is set to 80,
+        and running <code>node app</code> through a screen session. Depending on the host you
+        go with, your mileage may vary.</p>
       </section>
 
       <h2>The default look</h2>
