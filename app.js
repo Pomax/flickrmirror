@@ -56,5 +56,5 @@ app.get('/collections/:collection', routes.collection);
 
 // start listening
 app.listen(env.get("port"), function(err) {
-  console.log("Node server listening on http://127.0.0.1:3000");
+  console.log("Node server listening on http://127.0.0.1:" + env.get("port"));
 })
