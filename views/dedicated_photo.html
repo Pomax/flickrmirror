@@ -5,7 +5,8 @@
     <div class="photo">
       <h1>{{ photo.title._content }}</h1>
       <figure>
-        <a href="/photos/{{ photo.id }}/lightbox"><img src="/images/large/{{ photo.id }}.jpg"></a>
+        {% set large = photo.sizes.indexOf("b") %}
+        <a href="/photos/{{ photo.id }}/lightbox"><img src="/images/{% if large == -1 %}medium{% else %}large{% endif %}/{{ photo.id }}.jpg"></a>
         <figcaption>{{ photo.dates.taken }}</figcaption>
       </figure>
 
