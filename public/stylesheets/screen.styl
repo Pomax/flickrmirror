@@ -1,204 +1,257 @@
-html. body
-  margin 0
-  padding 0
-  background red
-  height 100%
-  font-size:10px;
-  line-height:10px;
+html. body {
+  margin: 0
+  padding: 0
+  background: red
+  height: 100%
+  font-size: 10px;
+  line-height: 10px;
+}
 
-body
-  margin 0
-  padding 0
-  background white
+body {
+  margin: 0
+  padding: 0
+  background: white
+}
 
-.header
-  border-bottom 1px solid black
-  margin-bottom 2em
-  color #0063c8
-  h1
-    font-size 300%
-    line-height 1em
+.header {
+  border-bottom: 1px solid black
+  margin-bottom: 2em
+  color: #0063c8
+  h1 {
+    font-size: 300%
+    line-height: 1em
     margin-bottom: -0.1em
     margin-left: 0.2em
-    font-family helvetica
-  .highlight
-    color #ff0084
-  a
-    text-decoration none
-  a:visited
-    color inherit
-  .plain
-    color #222
+    font-family: helvetica
+  }
+  .highlight {
+    color: #ff0084
+  }
+  a {
+    text-decoration: none
+    &:visited {
+      color: inherit
+    }
+  }
+  .plain {
+    color: #222
+  }
+}
 
-.content
-  max-width 1200px
-  margin auto
-  position relative
-  text-align center
-  .photo
-    width 74%
-  .navs
-    width: 25%
-  .photo, .navs
-    display inline-block
-    vertical-align top
-    img
-      max-width: 100%;
-
-.streamnav
-  font-size 85%
-  line-height 1em
-  background #EEE
-  padding 0.5em
-  padding-top 0.25em
-  margin-bottom 10px
-  a
-    text-decoration none
-    color #ff0084
-  span, img
-    display inline-block
-    margin 0
-    padding 0
-  span
-    width: 25%
-  span + span
-    margin-left 10px
-  img
-    border 1px solid black
-  p
-    font-family helvetica
-    font-weight bold
-
-.stream, .set>.photos
-  text-align center
-  width 1020px
+.content {
+  max-width: 1200px
   margin: auto
-  .entry
-    figure
-      margin 0
-      h4
-        font-weight bold
-        margin 0
-      figcaption
-        font-style italic
-        opacity 0.3
-    position relative
-    h1
-      line-height 1em
-      overflow hidden
-      text-overflow ellipsis
-      white-space nowrap
-      width 100%
+  positio:n relative
+  text-align: center
+  .photo {
+    width: 74%
+  }
+  .navs {
+    width: 25%
+  }
+  .photo, .navs {
+    display: inline-block
+    vertical-align: top
+    img {
+      max-width: 100%;
+    }
+  }
+}
 
-    display inline-block
-    width 240px
-    height 400px
-    vertical-align top
-    text-overflow ellipsis
-    overflow hidden
-    margin 1em
-    p
-      text-align justify
-    footer
-      position absolute
-      bottom 0
-      left 0
-      right 0
-      background white
-      box-shadow 0 0 60px 50px white
-  .pages
-    list-style none
-    li
-      display inline-block
-      width 20px
-      height 20px
-      text-align center
-      vertical-align middle
-      border 1px solid rgba(0,0,0,0.2)
-      a
+.streamnav {
+  font-size: 85%
+  line-height: 1em
+  background: #EEE
+  padding: 0.5em
+  padding-top: 0.25em
+  margin-bottom: 10px
+  a {
+    text-decoration: none
+    color: #ff0084
+  }
+  span, img {
+    display: inline-block
+    margin: 0
+    padding: 0
+  }
+  span {
+    width: 25%
+    & + span {
+      margin-left: 10px
+    }
+  }
+  img {
+    border: 1px solid black
+  }
+  p {
+    font-family: helvetica
+    font-weight: bold
+  }
+}
+
+.stream, .set>.photos {
+  text-align: center
+  width: 1020px
+  margin: auto
+  .entry {
+    position: relative
+    display: inline-block
+    width: 240px
+    height: 400px
+    vertical-align: top
+    text-overflow: ellipsis
+    overflow: hidden
+    margin: 1em
+    figure {
+      margin: 0
+      h4 {
+        font-weight: bold
+        margin: 0
+      }
+      figcaption {
+        font-style: italic
+        opacity: 0.3
+      }
+    }
+    h1 {
+      line-height: 1em
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+      width: 100%
+    }
+    p {
+      text-align: justify
+    }
+    footer {
+      position: absolute
+      bottom: 0
+      left: 0
+      right: 0
+      background: white
+      box-shadow: 0 0 60px 50px white
+    }
+  }
+  .pages {
+    list-style: none
+    li {
+      display: inline-block
+      width: 20px
+      height: 20px
+      text-align: center
+      vertical-align: middle
+      border: 1px solid rgba(0,0,0,0.2)
+      color: #0063c8
+      a {
         color: inherit
-        text-decoration none
-      a:visited
-        color inherit
-      color #0063c8
-      &.current
-        font-weight bold
-        color #ff0084
-      &:hover
-        background #0063dc
-        color white
-      &.noborder
-        border none
+        text-decoration: none
+        &:visited {
+          color: inherit
+        }
+      }
+      &.current {
+        font-weight: bold
+        color: #ff0084
+      }
+      &:hover {
+        background: #0063dc
+        color: white
+      }
+      &.noborder {
+        border: none
+      }
+    }
+  }
+}
 
-.description, .comments
-  text-align justify
+.description, .comments {
+  text-align: justify
+}
 
-.comments
-  border-top 1px solid black
-  .comment
-    margin 1em
-    padding 5px 1em
-    background #EEE
-    .author
-      text-align right
-    .flickrlink a
-      text-decoration none
-      font-size 75%
+.comments {
+  border-top: 1px solid black
+  .comment {
+    margin: 1em
+    padding: 5px 1em
+    background: #EEE
+    .author {
+      text-align: right
+    }
+    .flickrlink a {
+      text-decoration: none
+      font-size: 75%
+    }
+  }
+}
 
-.side
-  width 200px
-  background #f4f4f4
-  padding 3em 0em
-  margin 2em
-  vertical-align top
-  text-align center
-  &.left
-    float left
-  &.right
-    float right
+.side {
+  width: 200px
+  background: #f4f4f4
+  padding: 3em 0em
+  margin: 2em
+  vertical-align: top
+  text-align: center
+  &.left {
+    float: left
+  }
+  &.right {
+    float: right
+  }
+}
 
-.collection, .set
-  img
-    border 1px solid black
+.collection, .set {
+  img {
+    border: 1px solid black
+  }
+}
 
-.footernotice
-  border-top 1px solid black
-  padding-top 0.5em
-  background #f4f4f4
-  line-height 2em
-  text-align center
+.footernotice {
+  border-top: 1px solid black
+  padding-top: 0.5em
+  background: #f4f4f4
+  line-height: 2em
+  text-align: center
+}
 
-.collection
-  text-align center
-  .collection_set
-    display inline-block
-    width 240px
-    height 400px
-    vertical-align top
-    overflow hidden
-    text-align left
-  div.thumbnails
-    width 112px
-    margin auto
-    background white
-    line-height 0
-    img.collection_thumb
-      display inline-block
-      width 25px
-      height 25px
-      margin 0.5px
-  a
-    text-decoration none
-    margin 0
+.collection {
+  text-align: center
+  .collection_set {
+    display: inline-block
+    width: 240px
+    height: 400px
+    vertical-align: top
+    overflow: hidden
+    text-align: left
+  }
+  div.thumbnails {
+    width: 112px
+    margin: auto
+    background: white
+    line-height: 0
+    img.collection_thumb {
+      display: inline-block
+      width: 25px
+      height: 25px
+      margin: 0.5px
+    }
+  }
+  a {
+    text-decoration: none
+    margin: 0
+  }
+}
 
-.pool
-  display table
-  background #EEE
-  min-height 48px
-  width 100%
-  span
-    display table-cell
-    vertical-align middle
-    text-align center
-  img
-    float right
+.pool {
+  display: table
+  background: #EEE
+  min-height: 48px
+  width: 100%
+  span {
+    display: table-cell
+    vertical-align: middle
+    text-align: center
+  }
+  img {
+    float: right
+  }
+}
