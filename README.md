@@ -23,10 +23,17 @@ to install all dependencies.
 
 After that, rename the `env.dist` file to `.env`, open it
 in a text editor, and input your Flickr API key and secret,
-as well as your screen name.
+as well as your screen name. Also note the permissions var,
+which can be set to "read", "write", or "delete". The template
+env.dist has this set to "read" since it only downsyncs by
+default, but you can change this to whatever you like.
 
-If you do not have a Flickr API key, you can trivially get a
-non-commercial one for free by going to:
+If you do change it, you'll have to kill off your access
+token and secret, and rerun the authorisation, since you
+will need new auth creds. to run with wider permissions.
+
+Also, if you do not have a Flickr API key, you can trivially
+get a non-commercial one for free by going to:
 
   http://www.flickr.com/services/apps/create/apply
 
