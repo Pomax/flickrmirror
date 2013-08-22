@@ -7,7 +7,7 @@
       <div class="streamnav">
         <p>« <a href="/sets/{{ setObj.id }}">{{ title }}</a> »</p>
         <span class="next">
-          {% if prev %}<a href="/photos/{{ next.id }}">
+          {% if next %}<a href="/photos/{{ next.id }}">
             <img src="/images/square/small/{{ next.id }}.jpg" title="{{ next.title._content }}">
           </a>{% endif %}
         </span>
