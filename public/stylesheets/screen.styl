@@ -130,6 +130,21 @@ body
       &.noborder
         border none
 
+.description, .comments
+  text-align justify
+
+.comments
+  border-top 1px solid black
+  .comment
+    margin 1em
+    padding 5px 1em
+    background #EEE
+    .author
+      text-align right
+    .flickrlink a
+      text-decoration none
+      font-size 75%
+
 .side
   width 200px
   background #f4f4f4
@@ -175,3 +190,15 @@ body
   a
     text-decoration none
     margin 0
+
+.pool
+  display table
+  background #EEE
+  min-height 48px
+  width 100%
+  span
+    display table-cell
+    vertical-align middle
+    text-align center
+  img
+    float right

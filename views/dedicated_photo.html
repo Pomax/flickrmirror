@@ -5,8 +5,13 @@
     <div class="photo">
       <h1>{{ photo.title._content }}</h1>
       <figure>
-        {% set large = photo.sizes.indexOf("b") %}
-        <a href="/photos/{{ photo.id }}/lightbox"><img src="/images/{% if large == -1 %}medium{% else %}large{% endif %}/{{ photo.id }}.jpg"></a>
+        <a href="/photos/{{ photo.id }}/lightbox"><img src="/images/{{ photo.viewsize }}/{{ photo.id }}.{%
+          if photo.viewsize == "original"
+        %}{{ photo.originalformat }}{%
+          else
+        %}jpg{%
+          endif
+        %}"></a>
         <figcaption>{{ photo.dates.taken }}</figcaption>
       </figure>
 
@@ -16,9 +21,18 @@
       <section>
       {% endif %}
 
-      <section>
+      <section class="description">
         <p>{{ photo.description._content }}</p>
       </section>
+
+      {% if photo.comments %}
+      <section class="comments">
+        {% for comment in photo.comments %}
+        {% include "comment.html" %}
+        {% endfor %}
+      </section>
+      {% endif %}
+
       {% include "license.html" %}
     </div>
 
@@ -31,6 +45,14 @@
       {% for setObj in photo.sets %}
         {% include "streamnav2.html" %}
       {% endfor %}
+
+      {% for pool in photo.contexts.pool %}
+      <div class="pool">
+        <span>Part of the <a href="http://www.flickr.com{{ pool.url }}">{{ pool.title }}</a> pool</span>
+        <a href="http://www.flickr.com{{ pool.url }}"><img src="http://farm{{ pool.iconfarm }}.staticflickr.com/{{ pool.iconserver }}/buddyicons/{{ pool.id }}.jpg"></a>
+      </div>
+      {% endfor %}
+
     </div>
   </div>
 {% endblock %}

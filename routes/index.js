@@ -77,6 +77,21 @@ module.exports = function(username, app, informationArchitecture) {
           nkey = pos<ia.photo_keys.length-1 ? pos +1 : false;
       if(pkey) { photo.prev = photos[ia.photo_keys[pkey]]; }
       if(nkey) { photo.next = photos[ia.photo_keys[nkey]]; }
+      var viewsizes = {
+            "b" : "large",
+            "c" : "medium800",
+            "z" : "medium",
+            "o" : "original",
+          },
+          viewkeys = Object.keys(viewsizes),
+          viewsize;
+      for(var v=0; v<4; v++) {
+        viewsize = viewkeys[v];
+        if(photo.sizes.indexOf(viewsize) > -1) {
+          photo.viewsize = viewsizes[viewsize];
+          break;
+        }
+      }
       res.render("dedicated_photo.html", ia.enrich({
         photo: photo
       }));

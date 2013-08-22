@@ -6,15 +6,15 @@
 
       <div class="streamnav">
         <p>« <a href="/sets/{{ setObj.id }}">{{ title }}</a> »</p>
-        <span class="next">
-          {% if next %}<a href="/photos/{{ next.id }}">
-            <img src="/images/square/small/{{ next.id }}.jpg">
+        <span class="prev">
+          {% if prev %}<a href="/photos/{{ prev.id }}">
+            <img src="/images/square/small/{{ prev.id }}.jpg" title="{{ prev.dateuploaded }}">
           </a>{% endif %}
         </span>
         <span class="current"><img src="/images/square/small/{{ photo.id }}.jpg"></span>
-        <span class="prev">
-          {% if prev %}<a href="/photos/{{ prev.id }}">
-            <img src="/images/square/small/{{ prev.id }}.jpg">
+        <span class="next">
+          {% if next %}<a href="/photos/{{ next.id }}">
+            <img src="/images/square/small/{{ next.id }}.jpg" title="{{ next.dateuploaded }}">
           </a>{% endif %}
         </span>
       </div>
