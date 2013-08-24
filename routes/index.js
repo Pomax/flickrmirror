@@ -75,8 +75,8 @@ module.exports = function(username, app, informationArchitecture) {
           pos = ia.photo_keys.indexOf(photo.id),
           pkey = pos>0 ? pos-1 : false,
           nkey = pos<ia.photo_keys.length-1 ? pos +1 : false;
-      if(pkey) { photo.prev = photos[ia.photo_keys[pkey]]; }
-      if(nkey) { photo.next = photos[ia.photo_keys[nkey]]; }
+      if(pkey !== false) { photo.prev = photos[ia.photo_keys[pkey]]; }
+      if(nkey !== false) { photo.next = photos[ia.photo_keys[nkey]]; }
       var viewsizes = {
             "b" : "large",
             "c" : "medium800",
