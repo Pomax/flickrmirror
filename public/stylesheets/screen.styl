@@ -75,6 +75,7 @@ body {
     padding: 0
   }
   span {
+    line-height: 0
     width: 25%
     & + span {
       margin-left: 10px
@@ -86,6 +87,13 @@ body {
   p {
     font-family: helvetica
     font-weight: bold
+  }
+  &.cursor.navigate {
+    border: 1px solid orange
+    .current {
+      border: 5px solid orange
+      border-right-width: 6px
+    }
   }
 }
 

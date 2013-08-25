@@ -1,14 +1,14 @@
 {% block streamnav %}
-      <div class="streamnav">
+      <div class="streamnav cursor navigate">
       	<p>« {{ title }} »</p>
       	<span class="prev">
-      	  {% if prev %}<a href="/photos/{{ prev.id }}">
+      	  {% if prev %}<a class="left cursor" href="/photos/{{ prev.id }}">
       	  	<img src="/images/square/small/{{ prev.id }}.jpg">
       	  </a>{% endif %}
       	</span>
         <span class="current"><img src="/images/square/small/{{ photo.id }}.jpg"></span>
       	<span class="next">
-      	  {% if next %}<a href="/photos/{{ next.id }}">
+      	  {% if next %}<a class="right cursor"href="/photos/{{ next.id }}">
       	  	<img src="/images/square/small/{{ next.id }}.jpg">
       	  </a>{% endif %}
       	</span>

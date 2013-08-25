@@ -37,15 +37,19 @@
     </div>
 
     <div class="navs">
+      <!-- photo stream -->
+      <script src="/js/streamnavigation.js"></script>
       {% set title = "photostream" %}
       {% set prev = photo.prev %}
       {% set next = photo.next %}
       {% include "streamnav.html" %}
 
+      <!-- sets -->
       {% for setObj in photo.sets %}
         {% include "streamnav2.html" %}
       {% endfor %}
 
+      <!-- pools -->
       {% for pool in photo.contexts.pool %}
       <div class="pool">
         <span>Part of the <a href="http://www.flickr.com{{ pool.url }}">{{ pool.title }}</a> pool</span>
