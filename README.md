@@ -1,9 +1,15 @@
 # A Node.js Flickr downsync and re-serve app
 
-For when you want to download all your Flickr stuffs, and then
-serve it yourself instead, based on the data that Flickr has.
+For when you like using Flickr for its image hosting and
+photo organisation into sets and collections, but you're
+less than enthusiastic about how they're presenting your work.
 
-Like, say, you don't like the new design. Make your own!
+Create a mirror that can downsync from Flickr with your own
+UX and styling!
+
+FlickrMirror does this for you, and comes with a default look
+and feel based on the original (pre-tiles) Flickr, to get
+you started.
 
 ## human-friendly installation guide
 
