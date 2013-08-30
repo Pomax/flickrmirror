@@ -5,7 +5,7 @@
     <div class="photo">
       <h1>{{ photo.title._content }}</h1>
       <figure>
-        <a href="/photos/{{ photo.id }}/lightbox"><img src="/images/{{ photo.viewsize }}/{{ photo.id }}.{%
+        <a href="/{{ user }}/photos/{{ photo.id }}/lightbox"><img src="/images/{{ photo.viewsize }}/{{ photo.id }}.{%
           if photo.viewsize == "original"
         %}{{ photo.originalformat }}{%
           else

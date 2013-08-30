@@ -1,6 +1,6 @@
 <div class="collection">
   <h3>{{ collection.title }}</h3>
-  <a href="/collections/{{ collection.id }}"><div class="thumbnails">
+  <a href="/{{ user }}/collections/{{ collection.id }}"><div class="thumbnails">
     {% for id in collection.thumbnails %}<img class="collection_thumb" src="/images/square/small/{{ id }}.jpg">{% endfor %}
   </div></a>
 </div>

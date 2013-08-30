@@ -1,25 +1,71 @@
 /**
  * route rendering object
  */
-module.exports = function(username, app, informationArchitecture) {
-  var setSize = 18,
-      ia = informationArchitecture;
+module.exports = function(app, Flickr, userdatadir) {
+  var fs = require("fs");
+  var setSize = 18;
+  var ias = {};
+  var names = {};
 
-  ia.user_name = username || "";
+  /**
+   * Find correct spelling for the username
+   */
+  var findSpelling = function(user) {
+    if(names[user]) {
+      return names[user];
+    }
+    names[user] = user;
+    var dirs = fs.readdirSync(userdatadir);
+    dirs.forEach(function(name) {
+      if(name.toLowerCase() === user.toLowerCase()) {
+        names[user] = name;
+      }
+    });
+    return names[user];
+  }
 
-  ia.enrich = function(options) {
-    var enriched = {};
-    Object.keys(ia).forEach(function(key) {
-      enriched[key] = ia[key];
-    });
-    Object.keys(options).forEach(function(key) {
-      enriched[key] = options[key];
-    });
-    return enriched;
+  /**
+   * build a user's information architecture
+   */
+  var getIA = function(user) {
+    if(ias[user]) {
+      return ias[user];
+    }
+    var ia;
+    if(!ias[user]) {
+      var loc = userdatadir + "/" + user;
+      ia = Flickr.loadLocally(loc);
+      ias[user] = ia;
+    }
+    if(!ia.enrich) {
+      ia.enrich = function(options) {
+        var enriched = {};
+        Object.keys(ia).forEach(function(key) {
+          enriched[key] = ia[key];
+        });
+        Object.keys(options).forEach(function(key) {
+          enriched[key] = options[key];
+        });
+        return enriched;
+      };
+    }
+    return ia;
   };
 
+  /**
+   * Refresh a user's information architecture
+   */
+  var reloadIA = function(user) {
+    delete ias[user];
+    getIA(user);
+  };
+
+  /**
+   * Multi-page pages like the photostream and set-views
+   * require some "page" handling.
+   */
   var buildOptions = function(req, container) {
-    var page = parseInt(req.query.page) || 1,
+    var page = parseInt(req.query.page,10) || 1,
         startpage = page - 1,
         start = startpage * setSize,
         endpage = page,
@@ -39,26 +85,29 @@ module.exports = function(username, app, informationArchitecture) {
       lastpage: lastpage,
       navpages: navpages
     };
-  }
+  };
 
-  return {
+  var handler = {
     /**
      * Index page
      */
     index: function(req, res) {
+      var ia = getIA(res.locals.userdir);
       var options = buildOptions(req, ia.photo_keys);
+
       (function buildCollectionThumbnails(){
         Object.keys(ia.collections).forEach(function(collection) {
           collection = ia.collections[collection];
           var thumbnails = [];
+          var buildThumbnails = function(set) {
+            set = ia.photosets[set.id];
+            var photos = set.photos,
+                len = photos.length,
+                idx = (Math.random() * len) | 0;
+            thumbnails.push(photos[idx]);
+          };
           while(thumbnails.length < 12) {
-            collection.set.forEach(function(set) {
-              set = ia.photosets[set.id];
-              var photos = set.photos,
-                  len = photos.length,
-                  idx = (Math.random() * len) | 0;
-              thumbnails.push(photos[idx]);
-            });
+            collection.set.forEach(buildThumbnails);
           }
           collection.thumbnails = thumbnails.slice(0,12);
         });
@@ -70,6 +119,7 @@ module.exports = function(username, app, informationArchitecture) {
      * Photo view
      */
     photo: function(req, res) {
+      var ia = getIA(res.locals.user);
       var photos = ia.photos,
           photo = photos[res.locals.photo],
           pos = ia.photo_keys.indexOf(photo.id),
@@ -102,6 +152,7 @@ module.exports = function(username, app, informationArchitecture) {
      * Photo lightbox view
      */
     lightbox: function(req, res) {
+      var ia = getIA(res.locals.user);
       var photos = ia.photos,
           photo = photos[res.locals.photo];
       res.render("lightbox.html", ia.enrich({
@@ -114,6 +165,7 @@ module.exports = function(username, app, informationArchitecture) {
      * Set view
      */
     set: function(req, res) {
+      var ia = getIA(res.locals.user);
       var photosets = ia.photosets,
           photoset = photosets[res.locals.set],
           options = buildOptions(req, photoset.photos);
@@ -126,6 +178,7 @@ module.exports = function(username, app, informationArchitecture) {
      * Collection view
      */
     collection: function(req, res) {
+      var ia = getIA(res.locals.user);
       var collections = ia.collections,
           collection = collections[res.locals.collection];
       res.render("dedicated_collection.html", ia.enrich({
@@ -134,10 +187,21 @@ module.exports = function(username, app, informationArchitecture) {
       delete ia.collection;
     },
 
+    reload: function(req, res) {
+      reloadIA(res.locals.user);
+      return handler.index(req, res);
+    },
+
     /**
      * set up URL routing
      */
     parameters: (function(app) {
+      app.param("user", function(req, res, next, user) {
+        res.locals.userdir = user;
+        res.locals.user = findSpelling(user);
+        next();
+      });
+
       ["photo", "set", "collection"].forEach(function(param) {
         app.param(param, function(req, res, next, value) {
           res.locals[param] = value;
@@ -147,4 +211,5 @@ module.exports = function(username, app, informationArchitecture) {
     }(app))
   };
 
+  return handler;
 };

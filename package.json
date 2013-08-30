@@ -6,13 +6,25 @@
   "dependencies": {
     "argv": "0.0.2",
     "express": "~3.3.4",
+    "express-persona": "0.0.9",
     "flickrapi": "0.2.x",
     "habitat": "~0.4.2",
     "nunjucks": "~0.1.10",
     "open": "0.0.4",
     "prompt": "~0.2.11",
     "request": "~2.25.0",
-    "stylus": "~0.36.0",
-    "http-error": "0.0.1"
+    "stylus": "~0.36.0"
+  },
+  "engines": {
+    "node": ">0.8.x",
+    "npm": ">1.2.x"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.9",
+    "grunt-contrib-jshint": "~0.6.3"
+  },
+  "scripts": {
+    "test": "grunt"
   }
 }
