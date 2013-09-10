@@ -22,7 +22,7 @@ module.exports = function(app, Flickr, userdatadir) {
       }
     });
     return names[user];
-  }
+  };
 
   /**
    * build a user's information architecture

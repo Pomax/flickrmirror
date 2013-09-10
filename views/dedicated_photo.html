@@ -39,15 +39,22 @@
     <div class="navs">
       <!-- photo stream -->
       <script src="/js/streamnavigation.js"></script>
-      {% set title = "photostream" %}
-      {% set prev = photo.prev %}
-      {% set next = photo.next %}
-      {% include "streamnav.html" %}
+      <div class="photostream">
+        {% set title = "photostream" %}
+        {% set prev = photo.prev %}
+        {% set next = photo.next %}
+        {% include "streamnav.html" %}
+      </div>
 
       <!-- sets -->
+      <div class="sets">
       {% for setObj in photo.sets %}
-        {% include "streamnav2.html" %}
+        {% set title = photosets[setObj.id].title._content %}
+        {% set prev = setObj.next %}
+        {% set next = setObj.prev %}
+        {% include "streamnav.html" %}
       {% endfor %}
+      </div>
 
       <!-- pools -->
       {% for pool in photo.contexts.pool %}
