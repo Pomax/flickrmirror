@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h1>{{ user }}'s profile</h1>
+  <div>Flickr username: <strong>{{ username }}</strong></div>
+  <div>Flickr account: <strong>{{ flickracct }}</strong></div>
+  <div><label for="permissions">App permissions:</label><select id="permissions">
+    <option value="read"{% if premission == 'read' %} selected{% endif %}>read</option>
+    <option value="write"{% if premission == 'write' %} selected{% endif %}>write</option>
+    <option value="delete"{% if premission == 'delete' %} selected{% endif %}>delete</option>
+  </select></div>
+  <div><label for="theme">Theme:<label><select id="theme">
+    <option value="classic"{% if theme == 'classic' %} selected{% endif %}>classic</option>
+    <option value="new flickr"{% if theme == 'new flickr' %} selected{% endif %}>new flickr</option>
+  </select></div>
+  {% if downsync %}<div>
+    <label for="downsync">downsync:</label><input type="checkbox" id="downsync" selected>
+    <div><button onclick="startDownsync()">Downsync now</button></div>
+  </div>{% endif %}
+{% endblock %}

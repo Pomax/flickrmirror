@@ -7,6 +7,13 @@ var argv = (function() {
           description: 'Download all photos and information architecture from Flickr',
           example: "'script --downsync"
       });
+      argv.option({
+          name: 'prune',
+          short: 'ds',
+          type: 'boolean',
+          description: 'Remove any local photos that got deleted on Flickr',
+          example: "'script --downsync --prune"
+      });
       return argv.run().options;
     }()),
     env = (function(){
@@ -34,7 +41,7 @@ var argv = (function() {
 
 // Authenticate with flickr and then download everything.
 if(argv.downsync) {
-  return Flickr.authenticate(FlickrOptions, Flickr.downsync(userdir + "/" + defaultuser));
+  return Flickr.authenticate(FlickrOptions, Flickr.downsync(userdir + "/" + defaultuser, argv.prune));
 }
 
 // No downsync: run server using IA
@@ -48,6 +55,7 @@ app.use(express.methodOverride());
 app.use(stylus.middleware({ src: "./public" }));
 app.use(express.static("public"));
 
+// static binding for all users' images
 fs.readdirSync(userdir).forEach(function(name) {
   var stat = fs.statSync(userdir + "/" + name);
   if(stat.isDirectory) {
@@ -57,12 +65,18 @@ fs.readdirSync(userdir).forEach(function(name) {
 
 // server routes
 var routes = require("./routes")(app, Flickr, "./userdata");
-app.get('/:user', routes.index);
-app.get('/:user/photos/:photo', routes.photo);
-app.get('/:user/photos/:photo/lightbox', routes.lightbox);
-app.get('/:user/sets/:set', routes.set);
+
+app.get('/signup',                        routes.signup);
+app.get('/notfound',                      routes.notfound);
+
+app.get('/:user',                         routes.index);
+app.get('/:user/profile',                 routes.user);
+app.get('/:user/photos/:photo',           routes.photo);
+app.get('/:user/photos/:photo/lightbox',  routes.lightbox);
+app.get('/:user/sets/:set',               routes.set);
 app.get('/:user/collections/:collection', routes.collection);
-app.get('/:user/reload', routes.reload);
+app.get('/:user/reload',                  routes.reload);
+
 
 // default route is for the .env's flickr user
 if(defaultuser) {

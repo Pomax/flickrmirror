@@ -14,7 +14,7 @@ module.exports = function(app, Flickr, userdatadir) {
     if(names[user]) {
       return names[user];
     }
-    names[user] = user;
+    names[user] = false;
     var dirs = fs.readdirSync(userdatadir);
     dirs.forEach(function(name) {
       if(name.toLowerCase() === user.toLowerCase()) {
@@ -53,6 +53,18 @@ module.exports = function(app, Flickr, userdatadir) {
   };
 
   /**
+   * grab the user's information
+   */
+  var getUser = function(user) {
+    var data = fs.readFileSync(userdatadir + "/" + user + "/"+ user + ".json");
+    try {
+      var obj = JSON.parse(data);
+      delete obj.password;
+      return obj;
+    } catch (e) { return {}; }
+  }
+
+  /**
    * Refresh a user's information architecture
    */
   var reloadIA = function(user) {
@@ -89,9 +101,32 @@ module.exports = function(app, Flickr, userdatadir) {
 
   var handler = {
     /**
+     * User profile page
+     */
+    user: function(req, res) {
+      var ia = getIA(res.locals.userdir);
+      var user = getUser(res.locals.userdir);
+      var options = buildOptions(req, ia.photo_keys);
+      res.render("profile.html", ia.enrich(options).enrich(user));
+    },
+
+    notfound: function(req, res) {
+      res.render("notfound.html");
+    },
+
+    signup: function(req, res) {
+      res.render("signup.html");
+    },
+
+    /**
      * Index page
      */
     index: function(req, res) {
+      // redirect unknown users to the signup page
+      if(!res.locals.user) {
+        return res.redirect("/notfound");
+      }
+
       var ia = getIA(res.locals.userdir);
       var options = buildOptions(req, ia.photo_keys);
 
@@ -196,12 +231,15 @@ module.exports = function(app, Flickr, userdatadir) {
      * set up URL routing
      */
     parameters: (function(app) {
+      // user parameter
       app.param("user", function(req, res, next, user) {
         res.locals.userdir = user;
         res.locals.user = findSpelling(user);
+        res.locals.ownpage = true;
         next();
       });
 
+      // content parameters
       ["photo", "set", "collection"].forEach(function(param) {
         app.param(param, function(req, res, next, value) {
           res.locals[param] = value;

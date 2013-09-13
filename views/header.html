@@ -1,3 +1,8 @@
     <div class="header">
-      <h1><a href="/{{ user }}/">A Flick<span class="highlight">r</span>Mirro<span class="highlight">r</span></a> <span class="plain">by {{ user }}</span></h1>
+      <h1><a href="/{% if user %}{{ user }}/{% endif %}">{% if user %}A {% endif %}Flick<span class="highlight">r</span>Mirro<span class="highlight">r</span></a> <span class="plain">{% if user %}by {{ user }}{% endif %}</span></h1>
+      {% if ownpage %}
+      <div class="accountlink">
+        <a href="/{{ user }}/profile">my settings</a>
+      </div>
+      {% endif %}
     </div>
