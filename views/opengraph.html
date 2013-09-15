@@ -1,6 +1,6 @@
 {% if pagetype == undefined %}
     <meta name="og:title" content="{{ user }}'s Flickr mirror">
-    <meta name="og:description" content="{{ user }}'s Flickr mirror of <a href='http://flickr.com/{{ user }}'>http://flickr.com/{{ user }}<a/>— made with <a href='http://github.com/Pomax/flickrmiorror'>http://github.com/Pomax/flickrmiorror</a>">
+    <meta name="og:description" content="{{ user }}'s Flickr mirror of http://flickr.com/{{ user }}— made with http://github.com/Pomax/flickrmiorror">
     {% for key in photo_keys.slice(start, end) %}
     {% set photo = photos[key] %}
     <meta name="og:image" content="/images/square/medium/{{ photo.id }}.jpg">
