@@ -1,6 +1,6 @@
 {% block streamnav %}
       <div class="streamnav cursor navigate">
-      	<p>« {{ title }} »</p>
+      	<p>« {% if setid %}<a href="/{{ user }}/sets/{{ setid }}">{% endif %}{{ title }}{% if setid %}</a>{% endif %} »</p>
       	<span class="prev">
       	  {% if prev %}<a class="left cursor" href="/{{ user }}/photos/{{ prev.id }}">
       	  	<img src="/images/square/small/{{ prev.id }}.jpg">

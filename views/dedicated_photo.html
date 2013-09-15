@@ -5,6 +5,13 @@
     <div class="photo">
       <h1>{{ photo.title._content }}</h1>
       <figure>
+        <meta property="og:image" content="/images/{{ photo.viewsize }}/{{ photo.id }}.{%
+          if photo.viewsize == "original"
+        %}{{ photo.originalformat }}{%
+          else
+        %}jpg{%
+          endif
+        %}"/>
         <a href="/{{ user }}/photos/{{ photo.id }}/lightbox"><img src="/images/{{ photo.viewsize }}/{{ photo.id }}.{%
           if photo.viewsize == "original"
         %}{{ photo.originalformat }}{%
@@ -52,6 +59,7 @@
         {% set title = photosets[setObj.id].title._content %}
         {% set prev = setObj.next %}
         {% set next = setObj.prev %}
+        {% set setid = setObj.id %}
         {% include "streamnav.html" %}
       {% endfor %}
       </div>
