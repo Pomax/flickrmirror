@@ -235,7 +235,7 @@ module.exports = function(app, Flickr, userdatadir) {
       app.param("user", function(req, res, next, user) {
         res.locals.userdir = user;
         res.locals.user = findSpelling(user);
-        res.locals.ownpage = true;
+        res.locals.ownpage = false;
         next();
       });
 
