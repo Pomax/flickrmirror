@@ -1,3 +1,4 @@
+{% set pagetype = "collection" %}
 {% extends "layout.html" %}
 
 {% block body %}
@@ -6,7 +7,6 @@
   {% for set in collection.set  %}
   <div class="collection_set">
 	  {% set photoset = photosets[set.id] %}
-      <meta property="og:image" content="/images/square/medium/{{ photoset.primary }}.jpg"/>
 	  <a href="/{{ user }}/sets/{{ photoset.id }}"><img src="/images/square/medium/{{ photoset.primary }}.jpg"></a>
 	  <h4>{{ photoset.title._content }}</h4>
 	  <p>{{ photoset.description._content }}</p>
