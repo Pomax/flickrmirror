@@ -1,0 +1,16 @@
+{% set pagetype = "recent" %}
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="recent set">
+
+  <h1>most recent batch of uploaded photographs</h1>
+
+  <div class="photos">
+  {% for photo in recent %}
+  {% include "stream_photo.html" %}
+  {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% block recent %}
+
+<div class="filmstrip">
+{% if page > 1 %}<a class="leftnav" href="?page={{ page - 1 }}"></a>{% endif %}
+{% for key in photo_keys.slice(start, end) %}
+{% set photo = photos[key] %}<a href="/{{ user }}/photos/{{ photo.id }}"><img src="/images/square/small/{{ photo.id }}.jpg"></a>{% endfor %}
+{% if page < lastpage %}<a  class="rightnav" href="?page={{ page + 1 }}"></a>{% endif %}
+</div>
+
+{% endblock %}

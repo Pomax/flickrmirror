@@ -16,7 +16,7 @@ body {
 .header {
   position: relative;
   border-bottom: 1px solid black
-  margin-bottom: 2em
+
   color: #0063c8
   h1 {
     font-size: 300%
@@ -95,6 +95,10 @@ body {
     font-family: helvetica
     font-weight: bold
   }
+}
+
+.photostream {
+  margin-top: 1em
 }
 
 .navs .photostream .streamnav {
@@ -219,12 +223,73 @@ body {
   }
   &.right {
     float: right
+    padding-top: 1.5em
+
+    .recentlink {
+      display: block
+      color: #0063c8
+      font-family: helvetica
+      font-size: 110%
+      text-decoration: none
+      margin-bottom: 1em
+    }
   }
 }
 
 .collection, .set {
   img {
     border: 1px solid black
+  }
+  &.recent {
+    h1 {
+      text-align: center
+      color: #0063c8
+      font-family: helvetica
+      font-variant: small-caps
+      margin: 1em 0
+    }
+    .photos {
+      width: auto
+    }
+  }
+}
+
+.filmstrip {
+  text-align: center
+  background: #f4f4f4
+  padding: 0
+  line-height: 0
+  border-bottom: 1px solid black
+  margin-bottom: 2em
+  img {
+    width: 4%
+    margin: 0
+    opacity: 0.3
+    &:hover {
+      opacity: 1
+    }
+  }
+  a {
+    text-decoration: none
+    margin: -1px;
+    & + a {
+      margin-left: 2px
+    }
+    &.leftnav, &.rightnav {
+      display: inline-block
+      width: 0
+      border: 25px solid transparent
+      opacity: 0.3
+      &:hover {
+        opacity: 1
+      }
+    }
+    &.leftnav {
+      border-right: 10px solid grey
+    }
+    &.rightnav {
+      border-left: 10px solid grey
+    }
   }
 }
 

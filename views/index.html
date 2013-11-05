@@ -1,8 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
+
+  {% include "filmstrip.html" %}
+
   <div class="content">
 
     <div class="right side">
+      <a class="recentlink" href="/{{user}}/recent">most recent batch</a><hr>
       {% for key in collection_keys %}
       {% set collection = collections[key] %}
       {% include "stream_collection.html" %}
@@ -16,6 +20,5 @@
       {% endfor %}
       {% include "pages.html" %}
     </div>
-
   </div>
 {% endblock %}

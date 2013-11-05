@@ -71,6 +71,7 @@ app.get('/notfound',                      routes.notfound);
 
 app.get('/:user',                         routes.index);
 app.get('/:user/profile',                 routes.user);
+app.get('/:user/recent',                  routes.recent);
 app.get('/:user/photos/:photo',           routes.photo);
 app.get('/:user/photos/:photo/lightbox',  routes.lightbox);
 app.get('/:user/sets/:set',               routes.set);

@@ -6,6 +6,7 @@ module.exports = function(app, Flickr, userdatadir) {
   var setSize = 18;
   var ias = {};
   var names = {};
+  var recent = {};
 
   /**
    * Find correct spelling for the username
@@ -70,6 +71,30 @@ module.exports = function(app, Flickr, userdatadir) {
   var reloadIA = function(user) {
     delete ias[user];
     getIA(user);
+  };
+
+  /**
+   * List of recently uploaded photos
+   */
+  var getRecentPhotos = function(req, res) {
+    if(!recent[res.locals.user]) {
+      var ia = getIA(res.locals.user);
+      var photos = Object.keys(ia.photos).map(function(key) {
+        return ia.photos[key];
+      });
+      photos.sort(function(a,b) {
+        return parseInt(b.dateuploaded) - parseInt(a.dateuploaded);
+      });
+      var listing = [photos[0]];
+      for (var i=1; i<photos.length; i++) {
+        if (parseInt(photos[i].dateuploaded) < parseInt(listing[i-1].dateuploaded) - 86400) {
+          break;
+        }
+        listing.push(photos[i]);
+      }
+      recent[res.locals.user] = listing;
+    }
+    return recent[res.locals.user];
   };
 
   /**
@@ -147,7 +172,19 @@ module.exports = function(app, Flickr, userdatadir) {
           collection.thumbnails = thumbnails.slice(0,12);
         });
       }());
+
+      options.recent = getRecentPhotos(req, res);
+
       res.render("index.html", ia.enrich(options));
+    },
+
+    /**
+     * Most recent uploads
+     */
+    recent: function(req, res) {
+      res.render("recent.html", {
+        recent: getRecentPhotos(req, res)
+      });
     },
 
     /**
