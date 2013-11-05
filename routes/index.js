@@ -136,6 +136,7 @@ module.exports = function(app, Flickr, userdatadir) {
     },
 
     notfound: function(req, res) {
+      res.locals.notfound = true;
       res.render("notfound.html");
     },
 
