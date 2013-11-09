@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <title>{{ user }}'s photographs</title>
     <link rel="stylesheet" href="/stylesheets/screen.css">
-    {% if not notfound %}
-    {% include "opengraph.html" %}
-    {% endif %}
+    {% if notfound %}{% else %}{% include "opengraph.html" %}{% endif %}
   </head>
   <body>
     {% include "header.html" %}
