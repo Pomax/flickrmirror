@@ -6,7 +6,6 @@ module.exports = function(app, Flickr, userdatadir) {
   var setSize = 18;
   var ias = {};
   var names = {};
-  var users = {};
   var recent = {};
 
   /**
@@ -20,9 +19,7 @@ module.exports = function(app, Flickr, userdatadir) {
     var dirs = fs.readdirSync(userdatadir);
     dirs.forEach(function(name) {
       if(name.toLowerCase() === user.toLowerCase()) {
-        var data = require(".././userdata/"+name+"/"+user+".json");
-        users[user] = data;
-        names[user] = data.username;
+        names[user] = name;
       }
     });
     return names[user];
