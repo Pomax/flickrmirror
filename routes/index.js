@@ -76,9 +76,12 @@ module.exports = function(app, Flickr, userdatadir) {
   /**
    * List of recently uploaded photos
    */
-  var getRecentPhotos = function(req, res) {
-    if(!recent[res.locals.user]) {
-      var ia = getIA(res.locals.user);
+  var getRecentPhotos = function(ia, req, res) {
+    ia = ia || getIA(res.locals.userdir);
+    var user = res.locals.user;
+    var batch = recent[user];
+    var keys = ia.photo_keys;
+    if(!batch || batch[0].id !== keys[0]) {
       var photos = Object.keys(ia.photos).map(function(key) {
         return ia.photos[key];
       });
@@ -92,9 +95,9 @@ module.exports = function(app, Flickr, userdatadir) {
         }
         listing.push(photos[i]);
       }
-      recent[res.locals.user] = listing;
+      recent[user] = listing;
     }
-    return recent[res.locals.user];
+    return recent[user];
   };
 
   /**
@@ -174,7 +177,7 @@ module.exports = function(app, Flickr, userdatadir) {
         });
       }());
 
-      options.recent = getRecentPhotos(req, res);
+      options.recent = getRecentPhotos(ia, req, res);
 
       res.render("index.html", ia.enrich(options));
     },
@@ -184,7 +187,7 @@ module.exports = function(app, Flickr, userdatadir) {
      */
     recent: function(req, res) {
       res.render("recent.html", {
-        recent: getRecentPhotos(req, res)
+        recent: getRecentPhotos(false, req, res)
       });
     },
 
