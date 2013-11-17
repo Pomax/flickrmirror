@@ -41,6 +41,10 @@ var argv = (function() {
 
 // Authenticate with flickr and then download everything.
 if(argv.downsync) {
+  FlickrOptions.afterDownsync = function() {
+    console.log("\Downsync finished");
+    process.exit(0);
+  };
   return Flickr.authenticate(FlickrOptions, Flickr.downsync(userdir + "/" + defaultuser, argv.prune));
 }
 
