@@ -160,14 +160,16 @@ module.exports = function(app, Flickr, userdatadir) {
       var options = buildOptions(req, ia.photo_keys);
 
       (function buildCollectionThumbnails(){
+        var idx = 0;
         Object.keys(ia.collections).forEach(function(collection) {
           collection = ia.collections[collection];
           var thumbnails = [];
           var buildThumbnails = function(set) {
             set = ia.photosets[set.id];
             var photos = set.photos,
-                len = photos.length,
-                idx = (Math.random() * len) | 0;
+                len = photos.length;
+            // idx = (Math.random() * len) | 0; // COMMENTED OFF; TAKES TOO MUCH TIME TO LOAD A PAGE THIS WAY:
+            if (++idx >= len) { idx = 0; }
             thumbnails.push(photos[idx]);
           };
           while(thumbnails.length < 12) {
