@@ -3,24 +3,24 @@
     <meta name="og:description" content="{{ user }}'s Flickr mirror of http://flickr.com/{{ user }}— made with http://github.com/Pomax/flickrmiorror">
     {% for key in photo_keys.slice(start, end) %}
     {% set photo = photos[key] %}
-    <meta name="og:image" content="/images/square/medium/{{ photo.id }}.jpg">
+    <meta name="og:image" content="/{{ user }}/images/square/medium/{{ photo.id }}.jpg">
     {% endfor %}
 {% endif %}{% if pagetype == "photo" %}
     <meta name="og:title" content="{{ photo.title._content }}">
     <meta name="og:description" content="{{ photo.description._content | replace('"',"'") }}">
-    <meta name="og:image" content="/images/square/medium/{{ photo.id }}.jpg">
+    <meta name="og:image" content="/{{ user }}/images/square/medium/{{ photo.id }}.jpg">
 {% endif %}{% if pagetype == "set" %}
     <meta name="og:title" content="{{ photoset.title._content }}">
     <meta name="og:description" content="{{ photoset.description._content | replace('"',"'") }}">
     {% set photolist = photoset.photos.slice().reverse() %}
     {% for id in photolist.slice(start, end) %}
-    <meta name="og:image" content="/images/square/medium/{{ id }}.jpg">
+    <meta name="og:image" content="/{{ user }}/images/square/medium/{{ id }}.jpg">
     {% endfor %}
 {% endif %}{% if pagetype == "collection" %}
     <meta name="og:title" content="{{ collection.title }}">
     <meta name="og:description" content="{{ collection.description | replace('"',"'") }}">
     {% for set in collection.set  %}
     {% set photoset = photosets[set.id] %}
-    <meta name="og:image" content="/images/square/medium/{{ photoset.primary }}.jpg">
+    <meta name="og:image" content="/{{ user }}/images/square/medium/{{ photoset.primary }}.jpg">
     {% endfor %}
 {% endif %}

@@ -3,13 +3,13 @@
       	<p>« {% if setid %}<a href="/{{ user }}/sets/{{ setid }}">{% endif %}{{ title }}{% if setid %}</a>{% endif %} »</p>
       	<span class="prev">
       	  {% if prev %}<a class="left cursor" href="/{{ user }}/photos/{{ prev.id }}">
-      	  	<img src="/images/square/small/{{ prev.id }}.jpg">
+      	  	<img src="/{{ user }}/images/square/small/{{ prev.id }}.jpg">
       	  </a>{% endif %}
       	</span>
         <span class="current"><img src="/images/square/small/{{ photo.id }}.jpg"></span>
       	<span class="next">
       	  {% if next %}<a class="right cursor"href="/{{ user }}/photos/{{ next.id }}">
-      	  	<img src="/images/square/small/{{ next.id }}.jpg">
+      	  	<img src="/{{ user }}/images/square/small/{{ next.id }}.jpg">
       	  </a>{% endif %}
       	</span>
       </div>

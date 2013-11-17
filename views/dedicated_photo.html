@@ -6,14 +6,14 @@
     <div class="photo">
       <h1>{{ photo.title._content }}</h1>
       <figure>
-        <meta property="og:image" content="/images/{{ photo.viewsize }}/{{ photo.id }}.{%
+        <meta property="og:image" content="/{{ user }}/images/{{ photo.viewsize }}/{{ photo.id }}.{%
           if photo.viewsize == "original"
         %}{{ photo.originalformat }}{%
           else
         %}jpg{%
           endif
         %}"/>
-        <a href="/{{ user }}/photos/{{ photo.id }}/lightbox"><img src="/images/{{ photo.viewsize }}/{{ photo.id }}.{%
+        <a href="/{{ user }}/photos/{{ photo.id }}/lightbox"><img src="/{{ user }}/images/{{ photo.viewsize }}/{{ photo.id }}.{%
           if photo.viewsize == "original"
         %}{{ photo.originalformat }}{%
           else

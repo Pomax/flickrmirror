@@ -42,7 +42,7 @@ var argv = (function() {
 // Authenticate with flickr and then download everything.
 if(argv.downsync) {
   FlickrOptions.afterDownsync = function() {
-    console.log("\Downsync finished");
+    console.log("\nDownsync finished");
     process.exit(0);
   };
   return Flickr.authenticate(FlickrOptions, Flickr.downsync(userdir + "/" + defaultuser, argv.prune));
@@ -51,42 +51,44 @@ if(argv.downsync) {
 // No downsync: run server using IA
 var app = expressApp;
 app.disable('x-powered-by');
-app.use(express.favicon("public/favicon.png"));
-app.use(express.compress());
-app.use(express.bodyParser());
-app.use(express.cookieParser());
-app.use(express.methodOverride());
-app.use(stylus.middleware({ src: "./public" }));
-app.use(express.static("public"));
+app.configure(function() {
+  app.use(express.favicon("public/favicon.png"));
+  app.use(express.compress());
+  app.use(express.bodyParser());
+  app.use(express.cookieParser());
+  app.use(express.methodOverride());
+  app.use(stylus.middleware({ src: "./public" }));
 
-// static binding for all users' images
-fs.readdirSync(userdir).forEach(function(name) {
-  var stat = fs.statSync(userdir + "/" + name);
-  if(stat.isDirectory) {
-    app.use(express.static(userdir + "/" + name));
+  // static binding for all users' images
+  fs.readdirSync(userdir).forEach(function(name) {
+    var stat = fs.statSync(userdir + "/" + name);
+    if(stat.isDirectory) {
+      app.use("/" + name + "/images", express.static(userdir + "/" + name + "/images"));
+    }
+  });
+  app.use(express.static("public"));
+
+  // server routes
+  var routes = require("./routes")(app, Flickr, "./userdata");
+
+  app.get('/signup',                        routes.signup);
+  app.get('/notfound',                      routes.notfound);
+
+  app.get('/:user',                         routes.index);
+  app.get('/:user/profile',                 routes.user);
+  app.get('/:user/recent',                  routes.recent);
+  app.get('/:user/photos/:photo',           routes.photo);
+  app.get('/:user/photos/:photo/lightbox',  routes.lightbox);
+  app.get('/:user/sets/:set',               routes.set);
+  app.get('/:user/collections/:collection', routes.collection);
+  app.get('/:user/reload',                  routes.reload);
+
+
+  // default route is for the .env's flickr user
+  if(defaultuser) {
+    app.get('/', function(req, res) { res.redirect('/' + defaultuser + '/'); });
   }
 });
-
-// server routes
-var routes = require("./routes")(app, Flickr, "./userdata");
-
-app.get('/signup',                        routes.signup);
-app.get('/notfound',                      routes.notfound);
-
-app.get('/:user',                         routes.index);
-app.get('/:user/profile',                 routes.user);
-app.get('/:user/recent',                  routes.recent);
-app.get('/:user/photos/:photo',           routes.photo);
-app.get('/:user/photos/:photo/lightbox',  routes.lightbox);
-app.get('/:user/sets/:set',               routes.set);
-app.get('/:user/collections/:collection', routes.collection);
-app.get('/:user/reload',                  routes.reload);
-
-
-// default route is for the .env's flickr user
-if(defaultuser) {
-  app.get('/', function(req, res) { res.redirect('/' + defaultuser + '/'); });
-}
 
 // start listening
 app.listen(env.get("port"), function(err) {
