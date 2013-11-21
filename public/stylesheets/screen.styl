@@ -115,7 +115,6 @@ body {
   color: black
 }
 
-
 .stream, .set>.photos {
   text-align: center
   width: 1020px
@@ -224,15 +223,24 @@ body {
   &.right {
     float: right
     padding-top: 1.5em
-
-    .recentlink {
+    .moresets, .recentlink {
       display: block
       color: #0063c8
       font-family: helvetica
       font-size: 110%
       text-decoration: none
+    }
+    .moresets {
+      margin-top: 1.5em
+      margin-bottom: -1em
+    }
+    .recentlink {
       margin-bottom: 1em
     }
+  }
+  a {
+    text-decoration: none
+    color: #0063c8
   }
 }
 
@@ -345,5 +353,31 @@ body {
   }
   img {
     float: right
+  }
+}
+
+.set-boxes {
+  margin: 2em 0
+  text-align: center
+  .set-box {
+    display: inline-block
+    width: 300px
+    height: 300px
+    vertical-align: top
+    margin: 5px
+    background: #F3F3F3
+    text-align: center
+    overflow: hidden
+    a {
+      text-decoration: none
+      color: #333
+    }
+    p {
+      text-align: left
+      text-overflow: ellipsis
+    }
+    img {
+      border: 1px solid #333
+    }
   }
 }

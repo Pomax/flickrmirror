@@ -160,6 +160,9 @@ module.exports = function(app, Flickr, userdatadir) {
       var options = buildOptions(req, ia.photo_keys);
 
       (function buildCollectionThumbnails(){
+        if (ia.collection_keys.length === 0) {
+          return;
+        }
         var idx = 0;
         Object.keys(ia.collections).forEach(function(collection) {
           collection = ia.collections[collection];
@@ -250,6 +253,14 @@ module.exports = function(app, Flickr, userdatadir) {
       options.photoset = photoset;
       res.render("dedicated_set.html", ia.enrich(options));
       delete ia.photoset;
+    },
+
+    /**
+     * All sets view
+     */
+    sets: function(req, res) {
+      var ia = getIA(res.locals.user);
+      res.render("all_sets.html", ia);
     },
 
     /**

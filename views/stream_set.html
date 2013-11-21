@@ -1,4 +1,6 @@
 <div class="set">
-  <h4>{{ photoset.title._content }}</h4>
-  <a href="/{{ user }}/sets/{{ photoset.id }}"><img src="/{{ user }}/images/square/small/{{ photoset.primary }}.jpg"></a>
+  <a href="/{{ user }}/sets/{{ photoset.id }}">
+    <h4>{{ photoset.title._content }}</h4>
+    <img src="/{{ user }}/images/square/small/{{ photoset.primary }}.jpg">
+  </a>
 </div>

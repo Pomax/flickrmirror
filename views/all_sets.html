@@ -1,0 +1,19 @@
+{% set pagetype = "sets" %}
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="set-boxes">
+  {% for key in photoset_keys %}
+  {% set photoset = photosets[key] %}
+  <div class="set-box">
+    <a href="/{{ user }}/sets/{{ photoset.id }}">
+      <h2>{{ photoset.title._content }}</h2>
+      <img src="/{{ user }}/images/square/medium/{{ photoset.primary }}.jpg">
+      <p>{{ photoset.description._content }}</p>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

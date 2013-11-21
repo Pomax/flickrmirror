@@ -7,10 +7,20 @@
 
     <div class="right side">
       <a class="recentlink" href="/{{user}}/recent">most recent batch</a><hr>
-      {% for key in collection_keys %}
-      {% set collection = collections[key] %}
-      {% include "stream_collection.html" %}
-      {% endfor %}
+      {% if collection_keys.length > 0 %}
+        {% for key in collection_keys %}
+        {% set collection = collections[key] %}
+        {% include "stream_collection.html" %}
+        {% endfor %}
+      {% else %}
+        {% for key in photoset_keys.slice(0,8) %}
+        {% set photoset = photosets[key] %}
+        {% include "stream_set.html" %}
+        {% endfor %}
+        {% if photoset_keys.length > 8 %}
+        <hr><a class="moresets" href="/{{user}}/sets">more photo sets</a>
+        {% endif %}
+      {% endif %}
     </div>
 
     <div class="stream">

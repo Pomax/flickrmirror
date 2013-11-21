@@ -79,6 +79,7 @@ app.configure(function() {
   app.get('/:user/recent',                  routes.recent);
   app.get('/:user/photos/:photo',           routes.photo);
   app.get('/:user/photos/:photo/lightbox',  routes.lightbox);
+  app.get('/:user/sets',                    routes.sets);
   app.get('/:user/sets/:set',               routes.set);
   app.get('/:user/collections/:collection', routes.collection);
   app.get('/:user/reload',                  routes.reload);
