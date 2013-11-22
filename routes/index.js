@@ -127,6 +127,23 @@ module.exports = function(app, Flickr, userdatadir) {
     };
   };
 
+  var getSetsInCollection = function(collection) {
+    var sets = [];
+    if(collection.set) {
+      collection.set.forEach(function(s) {
+        sets.push(s);
+      });
+      return sets;
+    }
+    if(collection.collection) {
+      collection.collection.forEach(function(c) {
+        sets = sets.concat(getSetsInCollection(c));
+      });
+    }
+    return sets;
+  };
+
+
   var handler = {
     /**
      * User profile page
@@ -166,17 +183,18 @@ module.exports = function(app, Flickr, userdatadir) {
         var idx = 0;
         Object.keys(ia.collections).forEach(function(collection) {
           collection = ia.collections[collection];
-          var thumbnails = [];
-          var buildThumbnails = function(set) {
-            set = ia.photosets[set.id];
-            var photos = set.photos,
-                len = photos.length;
-            // idx = (Math.random() * len) | 0; // COMMENTED OFF; TAKES TOO MUCH TIME TO LOAD A PAGE THIS WAY:
-            if (++idx >= len) { idx = 0; }
-            thumbnails.push(photos[idx]);
-          };
+          var thumbnails = [],
+              buildThumbnails = function(set) {
+                set = ia.photosets[set.id];
+                var photos = set.photos,
+                    len = photos.length;
+                // idx = (Math.random() * len) | 0; // COMMENTED OFF; TAKES TOO MUCH TIME TO LOAD A PAGE THIS WAY:
+                if (++idx >= len) { idx = 0; }
+                thumbnails.push(photos[idx]);
+              };
+
           while(thumbnails.length < 12) {
-            collection.set.forEach(buildThumbnails);
+            getSetsInCollection(collection).forEach(buildThumbnails);
           }
           collection.thumbnails = thumbnails.slice(0,12);
         });
