@@ -17,10 +17,8 @@
         {% set photoset = photosets[key] %}
         {% include "stream_set.html" %}
         {% endfor %}
-        {% if photoset_keys.length > 8 %}
-        <hr><a class="moresets" href="/{{user}}/sets">more photo sets</a>
-        {% endif %}
       {% endif %}
+      <hr><a class="moresets" href="/{{user}}/sets">view all sets</a>
     </div>
 
     <div class="stream">
