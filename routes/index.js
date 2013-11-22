@@ -127,19 +127,30 @@ module.exports = function(app, Flickr, userdatadir) {
     };
   };
 
-  var getSetsInCollection = function(collection) {
+  /**
+   * To get to actual sets contained by collections,
+   * we may need to resolve nested collections of
+   * arbitrary depth.
+   */
+  var getSetsInCollection = function(collection, safety_catch) {
+    // make sure that we don't infinitely recurse.
+    safety_catch = safety_catch || 1;
+    if(safety_catch>5) return [];
+    // if not cut short, find sets.
     var sets = [];
+    // collection of sets:
     if(collection.set) {
-      collection.set.forEach(function(s) {
-        sets.push(s);
+      collection.set.forEach(function(s) { sets.push(s); });
+      return sets;
+    }
+    // collection of collections:
+    if(collection.collection) {
+      collection.collection.forEach(function(c) {
+        sets = sets.concat(getSetsInCollection(c, safety_catch + 1));
       });
       return sets;
     }
-    if(collection.collection) {
-      collection.collection.forEach(function(c) {
-        sets = sets.concat(getSetsInCollection(c));
-      });
-    }
+    // collection of ???
     return sets;
   };
 
@@ -172,36 +183,9 @@ module.exports = function(app, Flickr, userdatadir) {
       if(!res.locals.user) {
         return res.redirect("/notfound");
       }
-
       var ia = getIA(res.locals.userdir);
       var options = buildOptions(req, ia.photo_keys);
-
-      (function buildCollectionThumbnails(){
-        if (ia.collection_keys.length === 0) {
-          return;
-        }
-        var idx = 0;
-        Object.keys(ia.collections).forEach(function(collection) {
-          collection = ia.collections[collection];
-          var thumbnails = [],
-              buildThumbnails = function(set) {
-                set = ia.photosets[set.id];
-                var photos = set.photos,
-                    len = photos.length;
-                // idx = (Math.random() * len) | 0; // COMMENTED OFF; TAKES TOO MUCH TIME TO LOAD A PAGE THIS WAY:
-                if (++idx >= len) { idx = 0; }
-                thumbnails.push(photos[idx]);
-              };
-
-          while(thumbnails.length < 12) {
-            getSetsInCollection(collection).forEach(buildThumbnails);
-          }
-          collection.thumbnails = thumbnails.slice(0,12);
-        });
-      }());
-
       options.recent = getRecentPhotos(ia, req, res);
-
       res.render("index.html", ia.enrich(options));
     },
 

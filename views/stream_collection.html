@@ -1,13 +1,6 @@
-<script>
-  function loadFallbackImg(img, id) {
-    img.src='/{{ user }}/images/square/small/'+id+'.jpg';
-  }
-</script>
 <div class="collection">
   <h3>{{ collection.title }}</h3>
   <a href="/{{ user }}/collections/{{ collection.id }}"><div class="thumbnails">
-    {% for id in collection.thumbnails %}<img class="collection_thumb"
-      src="/{{ user }}/images/square/tiny/{{ id }}.jpg"
-      onerror="loadFallbackImg(this, {{ id }})">{% endfor %}
+    <img class="collection_thumb" src="/{{ user}}{{ collection.iconsmall }}">
   </div></a>
 </div>
