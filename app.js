@@ -1,3 +1,6 @@
+/**
+ * All the variables the server will be using
+ */
 var argv = (function() {
       var argv = require("argv");
       argv.option({
@@ -16,14 +19,24 @@ var argv = (function() {
       });
       return argv.run().options;
     }()),
+    //  end of argument parsing
+
+    // .env file parsing
     env = (function(){
       var Habitat = require("habitat");
       Habitat.load();
       return new Habitat();
     }()),
+
+    // express server
     express = require("express"),
     expressApp = express(),
+
+    // filesystem access
     fs = require("fs"),
+    zlib = require("zlib"),
+
+    // templating
     nunjucks = (function(express) {
       var  nunjucks = require("nunjucks"),
           fsl = new nunjucks.FileSystemLoader('views'),
@@ -31,15 +44,21 @@ var argv = (function() {
       env.express(expressApp);
       return env;
     }(express)),
+
+    // CSS convenience
     stylus = require("stylus"),
 
+    // Flickr access
     Flickr = require("flickrapi"),
     FlickrOptions = env.get("flickr"),
 
+    // data settings
     userdir = env.get("userdir"),
     defaultuser = FlickrOptions.user_name;
 
-// Authenticate with flickr and then download everything.
+/**
+ * If the --downsync flag was used, authenticate with flickr and then download everything.
+ */
 if(argv.downsync) {
   FlickrOptions.afterDownsync = function() {
     console.log("\nDownsync finished");
@@ -48,7 +67,9 @@ if(argv.downsync) {
   return Flickr.authenticate(FlickrOptions, Flickr.downsync(userdir + "/" + defaultuser, argv.prune));
 }
 
-// No downsync: run server using IA
+/**
+ * No downsync: run server using the information architectures in the user directories
+ */
 var app = expressApp;
 app.disable('x-powered-by');
 app.configure(function() {
@@ -68,30 +89,25 @@ app.configure(function() {
   });
   app.use(express.static("public"));
 
-  // server routes
-  var routes = require("./routes")(app, Flickr, "./userdata");
-
-  app.get('/signup',                        routes.signup);
-  app.get('/notfound',                      routes.notfound);
-
-  app.get('/:user',                         routes.index);
-  app.get('/:user/profile',                 routes.user);
-  app.get('/:user/recent',                  routes.recent);
-  app.get('/:user/photos/:photo',           routes.photo);
-  app.get('/:user/photos/:photo/lightbox',  routes.lightbox);
-  app.get('/:user/sets',                    routes.sets);
-  app.get('/:user/sets/:set',               routes.set);
-  app.get('/:user/collections/:collection', routes.collection);
-  app.get('/:user/reload',                  routes.reload);
-
-
-  // default route is for the .env's flickr user
-  if(defaultuser) {
-    app.get('/', function(req, res) { res.redirect('/' + defaultuser + '/'); });
-  }
+  // set up server logging
+  require("./logger").log(express, app, env);
 });
 
-// start listening
+/**
+ * server routes
+ */
+require("./routes")(app, Flickr, "./userdata").bind(app);
+
+/**
+ * Special route: default route is for the .env's flickr user
+ */
+if(defaultuser) {
+  app.get('/', function(req, res) { res.redirect('/' + defaultuser + '/'); });
+}
+
+/**
+ * Start the server process
+ */
 app.listen(env.get("port"), function(err) {
   console.log("Node server listening on http://127.0.0.1:" + env.get("port"));
 });

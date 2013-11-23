@@ -63,7 +63,7 @@ module.exports = function(app, Flickr, userdatadir) {
       delete obj.password;
       return obj;
     } catch (e) { return {}; }
-  }
+  };
 
   /**
    * Refresh a user's information architecture
@@ -86,11 +86,11 @@ module.exports = function(app, Flickr, userdatadir) {
         return ia.photos[key];
       });
       photos.sort(function(a,b) {
-        return parseInt(b.dateuploaded) - parseInt(a.dateuploaded);
+        return parseInt(b.dateuploaded, 10) - parseInt(a.dateuploaded, 10);
       });
       var listing = [photos[0]];
       for (var i=1; i<photos.length; i++) {
-        if (parseInt(photos[i].dateuploaded) < parseInt(listing[i-1].dateuploaded) - 86400) {
+        if (parseInt(photos[i].dateuploaded, 10) < parseInt(listing[i-1].dateuploaded, 10) - 86400) {
           break;
         }
         listing.push(photos[i]);
@@ -154,8 +154,24 @@ module.exports = function(app, Flickr, userdatadir) {
     return sets;
   };
 
-
+  /**
+   * The route handler
+   */
   var handler = {
+    bind: function(app) {
+      app.get('/signup',                        this.signup);
+      app.get('/notfound',                      this.notfound);
+      app.get('/:user',                         this.index);
+      app.get('/:user/profile',                 this.user);
+      app.get('/:user/recent',                  this.recent);
+      app.get('/:user/photos/:photo',           this.photo);
+      app.get('/:user/photos/:photo/lightbox',  this.lightbox);
+      app.get('/:user/sets',                    this.sets);
+      app.get('/:user/sets/:set',               this.set);
+      app.get('/:user/collections/:collection', this.collection);
+      app.get('/:user/reload',                  this.reload);
+    },
+
     /**
      * User profile page
      */
@@ -166,17 +182,23 @@ module.exports = function(app, Flickr, userdatadir) {
       res.render("profile.html", ia.enrich(options).enrich(user));
     },
 
+    /**
+     * 404 page
+     */
     notfound: function(req, res) {
       res.locals.notfound = true;
       res.render("notfound.html");
     },
 
+    /**
+     * Sign-up; not user at the moment
+     */
     signup: function(req, res) {
       res.render("signup.html");
     },
 
     /**
-     * Index page
+     * Front page
      */
     index: function(req, res) {
       // redirect unknown users to the signup page
@@ -190,7 +212,7 @@ module.exports = function(app, Flickr, userdatadir) {
     },
 
     /**
-     * Most recent uploads
+     * Most recent uploads by a user
      */
     recent: function(req, res) {
       res.render("recent.html", {
@@ -258,7 +280,7 @@ module.exports = function(app, Flickr, userdatadir) {
     },
 
     /**
-     * All sets view
+     * All sets view for a user
      */
     sets: function(req, res) {
       var ia = getIA(res.locals.user);
@@ -278,13 +300,16 @@ module.exports = function(app, Flickr, userdatadir) {
       delete ia.collection;
     },
 
+    /**
+     * Reload a user's ia from the browser
+     */
     reload: function(req, res) {
       reloadIA(res.locals.user);
       return handler.index(req, res);
     },
 
     /**
-     * set up URL routing
+     * set up URL parameter parsing
      */
     parameters: (function(app) {
       // user parameter

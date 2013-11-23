@@ -5,15 +5,20 @@
   "version": "0.1.12",
   "dependencies": {
     "argv": "0.0.2",
+    "dateformat": "~1.0.6-1.2.3",
     "express": "~3.3.4",
     "express-persona": "0.0.9",
     "flickrapi": "0.2.x",
     "habitat": "~0.4.2",
-    "nunjucks": "https://github.com/jlongster/nunjucks/archive/254b0eb279a217b0f792c87fee0a4489bb6f6f7b.tar.gz",
+    "nunjucks": "~1.0.0",
     "open": "0.0.4",
     "prompt": "~0.2.11",
     "request": "~2.25.0",
     "stylus": "~0.36.0"
+  },
+  "scripts": {
+    "install": "cp connect.logger.patch node_modules/express/node_modules/connect/lib/middleware/logger.js",
+    "test": "grunt"
   },
   "engines": {
     "node": ">0.8.x",
@@ -23,8 +28,5 @@
     "grunt": "~0.4.1",
     "grunt-cli": "~0.1.9",
     "grunt-contrib-jshint": "~0.6.3"
-  },
-  "scripts": {
-    "test": "grunt"
   }
 }
