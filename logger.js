@@ -1,57 +1,59 @@
 /**
  * Log rotation for express.js
  */
-
 var dateFormat = require("dateformat"),
     fs = require("fs"),
     zlib = require("zlib"),
-    zipper = zlib.createGzip();
+    stream = require("stream"),
+    through = new stream.PassThrough(),
+    output
 
-function getFileStream() {
+/**
+ * Cycle to the next file
+ */
+function cycleLogFile() {
+  if (output) {
+    through.unpipe(output);
+    output.archive();
+  }
+
   var now = new Date(),
       suffix = dateFormat(now, "yyyy-mm-dd HH-MM-ss"),
-      logfile = "./logs/" + suffix + ".log",
-      stream = fs.createWriteStream(logfile, { flags: 'a+' });
+      logfile = "./logs/" + suffix + ".log";
 
-  stream.archive = function() {
-    console.log("archiving "+logfile);
-    stream.on("finish", function() {
-      stream.removeAllListeners();
-      var input = fs.createReadStream(logfile, {autoClose: true}),
-           output = fs.createWriteStream(logfile + ".gz");
-      input.pipe(zipper).pipe(output);
-      output.on("close", function() {
-        console.log("unlinking"+logfile);
-        fs.unlink(logfile);
-        zipper.unpipe(output);
-        input.unpipe(zipper);
-        // clear listeners
-        output.removeAllListeners();
-        zipper.removeAllListeners();
-        input.removeAllListeners();
+  output = fs.createWriteStream(logfile, { flags: 'a+' });
+  through.pipe(output);
+
+  output.archive = (function(oldlog) {
+    return function() {
+      var data = fs.readFileSync(oldlog);
+      zlib.gzip(data, function(err, data) {
+        var packed = oldlog + ".gz";
+        fs.writeFile(packed, data, function(err, result){
+          fs.unlink(oldlog, function(err, result) {
+            output.end();
+          });
+        });
       });
-    });
-    stream.end();
-  };
-
-  return stream;
+    };
+  }(logfile));
 }
 
+/**
+ * Call as require("logger").log(app)
+ *
+ * Environment flags
+ *  - LOGCYCLE: the number of milliseconds between cycling log files
+ *  - LOGFORMAT: the data to log, see http://www.senchalabs.org/connect/logger.html
+ */
 module.exports = {
   log: function(express, app, env) {
-    var logstream = getFileStream(),
-        logger = express.logger({
-          format: env.get("logformat", "short"),
-          stream: logstream
-        }),
-        forward = function() {
-          var newlogstream = getFileStream();
-          logger.setStream({stream: newlogstream});
-          logstream.archive();
-          logstream = newlogstream;
-        };
-    // forward the
-    setInterval(forward, env.get("LOGCYCLE", 86400000)); // default to 24 hours
-    app.use(logger);
+    env = env || { get: function(key, fallback) { return fallback; }};
+    setInterval(cycleLogFile, env.get("logcycle", 86400000));
+    cycleLogFile();
+    app.use(express.logger({
+      format: env.get("logformat", "short"),
+      stream: through
+    }));
   }
-}
+};
