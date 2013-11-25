@@ -90,7 +90,7 @@ app.configure(function() {
   app.use(express.static("public"));
 
   // set up server logging
-  require("./logger").log(express, app, env);
+  require("./lib/logger").log(express, app, env);
 });
 
 /**
