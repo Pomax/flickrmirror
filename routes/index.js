@@ -1,28 +1,23 @@
 /**
  * route rendering object
  */
-module.exports = function(app, Flickr, userdatadir) {
+module.exports = function(app, Flickr, userdatadir, defaultuser) {
   var fs = require("fs");
   var setSize = 18;
   var ias = {};
-  var names = {};
   var recent = {};
 
   /**
    * Find correct spelling for the username
    */
   var findSpelling = function(user) {
-    if(names[user]) {
-      return names[user];
-    }
-    names[user] = false;
     var dirs = fs.readdirSync(userdatadir);
     dirs.forEach(function(name) {
       if(name.toLowerCase() === user.toLowerCase()) {
-        names[user] = name;
+        return name;
       }
     });
-    return names[user];
+    return false;
   };
 
   /**
@@ -176,6 +171,7 @@ module.exports = function(app, Flickr, userdatadir) {
      * User profile page
      */
     user: function(req, res) {
+      if(!res.locals.user) { return res.redirect("/notfound"); }
       var ia = getIA(res.locals.userdir);
       var user = getUser(res.locals.userdir);
       var options = buildOptions(req, ia.photo_keys);
@@ -201,10 +197,8 @@ module.exports = function(app, Flickr, userdatadir) {
      * Front page
      */
     index: function(req, res) {
-      // redirect unknown users to the signup page
-      if(!res.locals.user) {
-        return res.redirect("/notfound");
-      }
+      if(!res.locals.user) { res.locals.user = defaultuser; }
+      if(!res.locals.user) { return res.redirect("/notfound"); }
       var ia = getIA(res.locals.userdir);
       var options = buildOptions(req, ia.photo_keys);
       options.recent = getRecentPhotos(ia, req, res);
@@ -215,6 +209,7 @@ module.exports = function(app, Flickr, userdatadir) {
      * Most recent uploads by a user
      */
     recent: function(req, res) {
+      if(!res.locals.user) { return res.redirect("/notfound"); }
       res.render("recent.html", {
         recent: getRecentPhotos(false, req, res)
       });
@@ -224,6 +219,7 @@ module.exports = function(app, Flickr, userdatadir) {
      * Photo view
      */
     photo: function(req, res) {
+      if(!res.locals.user) { return res.redirect("/notfound"); }
       var ia = getIA(res.locals.user);
       var photos = ia.photos,
           photo = photos[res.locals.photo],
@@ -257,6 +253,7 @@ module.exports = function(app, Flickr, userdatadir) {
      * Photo lightbox view
      */
     lightbox: function(req, res) {
+      if(!res.locals.user) { return res.redirect("/notfound"); }
       var ia = getIA(res.locals.user);
       var photos = ia.photos,
           photo = photos[res.locals.photo];
@@ -270,6 +267,7 @@ module.exports = function(app, Flickr, userdatadir) {
      * Set view
      */
     set: function(req, res) {
+      if(!res.locals.user) { return res.redirect("/notfound"); }
       var ia = getIA(res.locals.user);
       var photosets = ia.photosets,
           photoset = photosets[res.locals.set],
@@ -283,6 +281,7 @@ module.exports = function(app, Flickr, userdatadir) {
      * All sets view for a user
      */
     sets: function(req, res) {
+      if(!res.locals.user) { return res.redirect("/notfound"); }
       var ia = getIA(res.locals.user);
       res.render("all_sets.html", ia);
     },
@@ -291,6 +290,7 @@ module.exports = function(app, Flickr, userdatadir) {
      * Collection view
      */
     collection: function(req, res) {
+      if(!res.locals.user) { return res.redirect("/notfound"); }
       var ia = getIA(res.locals.user);
       var collections = ia.collections,
           collection = collections[res.locals.collection];
@@ -304,6 +304,7 @@ module.exports = function(app, Flickr, userdatadir) {
      * Reload a user's ia from the browser
      */
     reload: function(req, res) {
+      if(!res.locals.user) { return res.redirect("/notfound"); }
       reloadIA(res.locals.user);
       return handler.index(req, res);
     },

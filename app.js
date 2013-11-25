@@ -96,7 +96,7 @@ app.configure(function() {
 /**
  * server routes
  */
-require("./routes")(app, Flickr, "./userdata").bind(app);
+require("./routes")(app, Flickr, "./userdata", defaultuser).bind(app);
 
 /**
  * Special route: default route is for the .env's flickr user
