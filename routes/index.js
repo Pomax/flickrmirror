@@ -12,13 +12,14 @@ module.exports = function(app, Flickr, userdatadir, defaultuser) {
    */
   var findSpelling = function(user) {
     var dirs = fs.readdirSync(userdatadir);
-    dirs.forEach(function(name) {
+    for(var i =  = dirs.length-1; i >=0; i--) {
+      name = dirs[i].trim();
       console.log(name);
       if(name.toLowerCase() === user.toLowerCase()) {
         console.log("name is "+name);
         return name;
       }
-    });
+    }
     console.log("no name for "+user);
     return false;
   };
