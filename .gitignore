@@ -3,3 +3,4 @@ public/stylesheets/*.css
 data
 userdata
 .env
+logs/*
