@@ -13,10 +13,13 @@ module.exports = function(app, Flickr, userdatadir, defaultuser) {
   var findSpelling = function(user) {
     var dirs = fs.readdirSync(userdatadir);
     dirs.forEach(function(name) {
+      console.log(name);
       if(name.toLowerCase() === user.toLowerCase()) {
+        console.log("name is "+name);
         return name;
       }
     });
+    console.log("no name for "+user);
     return false;
   };
 
@@ -315,9 +318,8 @@ module.exports = function(app, Flickr, userdatadir, defaultuser) {
     parameters: (function(app) {
       // user parameter
       app.param("user", function(req, res, next, user) {
-        user = findSpelling(user);
         res.locals.user = user;
-        res.locals.userdir = user;
+        res.locals.userdir = findSpelling(user);
         res.locals.ownpage = false;
         next();
       });
