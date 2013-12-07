@@ -113,7 +113,7 @@ module.exports = function(app, Flickr, userdatadir, defaultuser) {
       navpages.push(n);
     }
     return {
-      hostname: req.headers.host,
+      hostname: req.host,
       page: page,
       start: start,
       startpage: startpage,
