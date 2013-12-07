@@ -5,11 +5,13 @@
     <h4>{{ photo.title._content }}</h4>
   </figure>
 
-  {% if photo.location %}
-  <section>
+  <section class="links">
+    {% if photo.location %}
     <a href="https://maps.google.com/?ll={{ photo.location.latitude }},{{ photo.location.longitude }}">on the map</a>
-  <section>
-  {% endif %}
+    -
+    {% endif %}
+    <a href="http://images.google.com/searchbyimage?image_url=http://{{ hostname }}/{{ user }}/images/small/{{ photo.id }}.jpg">find on the web</a>
+  </section>
 
   <section>
     <p>{{ photo.description._content }}</p>
