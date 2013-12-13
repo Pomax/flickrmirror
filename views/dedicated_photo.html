@@ -36,12 +36,12 @@
       {% if photo.comments %}
       <section class="comments">
         {% for comment in photo.comments %}
-        {% include "comment.html" %}
+        {% include "blocks/comment.html" %}
         {% endfor %}
       </section>
       {% endif %}
 
-      {% include "license.html" %}
+      {% include "blocks/license.html" %}
     </div>
 
     <div class="navs">
@@ -51,7 +51,7 @@
         {% set title = "photostream" %}
         {% set prev = photo.prev %}
         {% set next = photo.next %}
-        {% include "streamnav.html" %}
+        {% include "blocks/streamnav.html" %}
       </div>
 
       <!-- sets -->
@@ -61,7 +61,7 @@
         {% set prev = setObj.next %}
         {% set next = setObj.prev %}
         {% set setid = setObj.id %}
-        {% include "streamnav.html" %}
+        {% include "blocks/streamnav.html" %}
       {% endfor %}
       </div>
 

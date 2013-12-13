@@ -1,0 +1,10 @@
+<div class="stream entry">
+  <figure>
+    <a href="/{{ user }}/photos/{{ photo.id }}"><img src="/{{ user }}/images/small/{{ photo.id }}.jpg"></a>
+    <figcaption>{{ photo.dates.taken }}</figcaption>
+    <h4>{{ photo.title._content }}</h4>
+  </figure>
+  {% include "blocks/photolinks.html" %}
+  {% include "blocks/description.html" %}
+  {% include "blocks/license.html" %}
+</div>

@@ -13,9 +13,9 @@
   {% set photolist = photoset.photos.slice().reverse() %}
   {% for id in photolist.slice(start, end) %}
     {% set photo = photos[id] %}
-    {% include "stream_photo.html" %}
+    {% include "blocks/content/stream_photo.html" %}
   {% endfor %}
-  {% include "pages.html" %}
+  {% include "blocks/pages.html" %}
   </div>
 
 </div>

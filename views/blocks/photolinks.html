@@ -1,0 +1,9 @@
+  <section class="links">
+    {% if photo.location %}
+    <a href="https://maps.google.com/?ll={{ photo.location.latitude }},{{ photo.location.longitude }}">on the map</a>
+    -
+    {% endif %}
+    <a href="http://images.google.com/searchbyimage?image_url=http://{{ hostname }}/{{ user }}/images/medium/{{ photo.id }}.jpg">find on the web</a>
+    -
+    <a href="http://flickr.com/photos/{{ user }}/{{ photo.id }}">view on flickr</a>
+  </section>

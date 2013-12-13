@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
-
-  {% include "filmstrip.html" %}
+  {% include "blocks/filmstrip.html" %}
+  <script src="/js/stripnavigation.js"></script>
 
   <div class="content">
 
@@ -10,12 +10,12 @@
       {% if collection_keys.length > 0 %}
         {% for key in collection_keys %}
         {% set collection = collections[key] %}
-        {% include "stream_collection.html" %}
+        {% include "blocks/content/stream_collection.html" %}
         {% endfor %}
       {% else %}
         {% for key in photoset_keys.slice(0,8) %}
         {% set photoset = photosets[key] %}
-        {% include "stream_set.html" %}
+        {% include "blocks/content/stream_set.html" %}
         {% endfor %}
       {% endif %}
       <hr><a class="moresets" href="/{{user}}/sets">view all sets</a>
@@ -24,9 +24,11 @@
     <div class="stream">
     	{% for key in photo_keys.slice(start, end) %}
       {% set photo = photos[key] %}
-      {% include "stream_photo.html" %}
+      {% include "blocks/content/stream_photo.html" %}
       {% endfor %}
-      {% include "pages.html" %}
+      {% include "blocks/pages.html" %}
     </div>
   </div>
+
+  {# <script src="/js/photodescriptions.js"></script> #}
 {% endblock %}

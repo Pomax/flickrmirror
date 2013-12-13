@@ -5,12 +5,12 @@
     <title>{{ user }}'s photographs</title>
     <link rel="stylesheet" href="/stylesheets/screen.css">
     {% if not notfound %}
-    {% include "opengraph.html" %}
+    {% include "blocks/opengraph.html" %}
     {% endif %}
   </head>
   <body>
-    {% include "header.html" %}
+    {% include "blocks/header.html" %}
    	{% block body %}{% endblock %}
-    {% include "footer.html" %}
+    {% include "blocks/footer.html" %}
   </body>
 </html>

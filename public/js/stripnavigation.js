@@ -5,19 +5,19 @@
 
   var KeyNavigation = function() {
     document.removeEventListener("DOMContentLoaded", KeyNavigation);
-    var stream = document.querySelector(".cursor.navigate");
+    var stream = document.querySelector(".filmstrip");
     var keyup = function(evt) {
       if(evt.target.nodeName.toLowerCase() === "input") return;
       var key = evt.which;
 
       // "left"
       if(key === 37) {
-        stream.querySelector(".left.cursor").click();
+        stream.querySelector(".rightnav").click();
       }
 
       // right
       if(key === 39) {
-        stream.querySelector(".right.cursor").click();
+        stream.querySelector(".leftnav").click();
       }
     };
     document.addEventListener("keyup", keyup);
