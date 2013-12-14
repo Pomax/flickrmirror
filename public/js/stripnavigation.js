@@ -12,12 +12,16 @@
 
       // "left"
       if(key === 37) {
-        stream.querySelector(".rightnav").click();
+        try {
+          stream.querySelector(".leftnav").click();
+        } catch (e) { console.log(e); }
       }
 
       // right
       if(key === 39) {
-        stream.querySelector(".leftnav").click();
+        try {
+          stream.querySelector(".rightnav").click();
+        } catch (e) { console.log(e); }
       }
     };
     document.addEventListener("keyup", keyup);
