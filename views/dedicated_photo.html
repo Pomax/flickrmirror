@@ -23,11 +23,7 @@
         <figcaption>{{ photo.dates.taken }}</figcaption>
       </figure>
 
-      {% if photo.location %}
-      <section>
-        <a href="https://maps.google.com/?ll={{ photo.location.latitude }},{{ photo.location.longitude }}">on the map</a>
-      <section>
-      {% endif %}
+      {% include "blocks/photolinks.html" %}
 
       <section class="description">
         <p>{{ photo.description._content }}</p>
