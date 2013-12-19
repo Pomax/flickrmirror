@@ -246,6 +246,7 @@ module.exports = function(app, Flickr, userdatadir, defaultuser) {
         }
       }
       res.render("dedicated_photo.html", ia.enrich({
+        hostname: req.host,
         photo: photo
       }));
       delete ia.photo;
