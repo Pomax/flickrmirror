@@ -77,7 +77,7 @@ module.exports = function(app, Flickr, userdatadir, defaultuser) {
     var user = res.locals.user;
     var batch = recent[user];
     var keys = ia.photo_keys;
-    if(!batch || batch[0].id !== keys[0]) {
+    if(!batch || batch.length === 0 || batch[0].id !== keys[0]) {
       var photos = Object.keys(ia.photos).map(function(key) {
         return ia.photos[key];
       });

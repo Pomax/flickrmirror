@@ -17,7 +17,6 @@
     "stylus": "~0.36.0"
   },
   "scripts": {
-    "install": "cp connect.logger.patch node_modules/express/node_modules/connect/lib/middleware/logger.js",
     "test": "grunt"
   },
   "engines": {
@@ -28,5 +27,6 @@
     "grunt": "~0.4.1",
     "grunt-cli": "~0.1.9",
     "grunt-contrib-jshint": "~0.6.3"
-  }
+  },
+  "license": "Public Domain"
 }
