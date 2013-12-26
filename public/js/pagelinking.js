@@ -11,9 +11,9 @@
     if (a) {
       li.setAttribute("tabindex",0);
       li.style.cursor = "pointer";
-      li.onclick = function() { a.click(); }
+      li.onclick = function() { a.click(); };
       // pass focus on to owning li instead
-      a.onfocus = function() { li.focus(); }
+      a.onfocus = function() { li.focus(); };
     }
   });
 }());
