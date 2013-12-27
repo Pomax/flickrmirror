@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+  <div class="content">
+
+    <h1>{{ results.length }} results for "{{ searchterm }}"</h1>
+
+    <div class="stream">
+	    {% for result in results %}
+	    {% set user = result.user %}
+	    {% set photo = result.photo %}
+	    {% set showuser = true %}
+	    {% include "blocks/content/stream_photo.html" %}
+	    {% endfor %}
+	</div>
+  </div>
+{% endblock %}

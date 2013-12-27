@@ -1,0 +1,24 @@
+<div class="userbox">
+  <h2 class="" href="/{{ user.name }}">{{ user.name }}</h2>
+
+  <div class="photocount">
+  	<a href="/{{ user.name }}">
+      <span class="count">{{ user.photocount }}</span>
+  	  photos
+    </a>
+  </div>
+
+  <div class="setcount">
+  	<a href="/{{ user.name }}/sets">
+      <span class="count">{{ user.setcount }}</span>
+    	sets
+    </a>
+  </div>
+
+  <div class="collectioncount">
+  	<a href="/{{ user.name }}/collections">
+      <span class="count">{{ user.collectioncount }}</span>
+      collections
+    </a>
+  </div>
+</div>

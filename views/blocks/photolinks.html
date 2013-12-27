@@ -5,5 +5,5 @@
     {% endif %}
     <a href="http://images.google.com/searchbyimage?image_url=http://{{ hostname }}/{{ user }}/images/medium/{{ photo.id }}.jpg">find on the web</a>
     -
-    <a href="http://flickr.com/photos/{{ user }}/{{ photo.id }}">view on flickr</a>
+    <a href="http://flickr.com/photos/{{ user.toLowerCase() }}/{{ photo.id }}">view on flickr</a>
   </section>

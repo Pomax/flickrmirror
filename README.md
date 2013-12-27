@@ -16,17 +16,25 @@ The rest of this readme is for people who want to actually fork and clone this r
 
 Clone the repo, ensure you have Node installed (head over to http://nodejs.org if you don't), and run `npm install` to install all dependencies.
 
-After that, rename the `env.dist` file to `.env`, open it in a text editor, and input your Flickr API key and secret, as well as your screen name. Also note the permissions var, which can be set to "read", "write", or "delete". The template env.dist has this set to "read" since it only downsyncs by default, but you can change this to whatever you like.
-
-If you do change it, you'll have to kill off your access token and secret, and rerun the authorisation, since you will need new auth creds. to run with wider permissions.
+After that, copy the `env.dist` to `.env` (for instance with `copy env.dist .env`). Open this `.env` file and customise it based on what you need the app to do. There are only a handful of application settings, so the only setting that generally really matters is your port number.
 
 Also, if you do not have a Flickr API key, you can trivially get a non-commercial one for free by going to:
 
-  http://www.flickr.com/services/apps/create/apply
+### First time run
 
-After this, you have two options when it comes to running the program. I recommend running them in the order listed below:
+Once you've cloned and copied the environment file, run `node app`, which will register it has never been run before, and will ask you to input some data so that it can set up your first user account. It will ask you for the following values:
 
-## running: downsync
+`username`: Your human readable username. Not the ...@... one, unless that's the only one you have.
+`email`: The flickrmirror user login is based on Persona, so whatever email address you use for that, use that. However, if you do not intend to make use of the user system, you can fill in any old random value.
+`apikey`: Your personal Flickr API key. If you don't have one, get one for free over at http://www.flickr.com/services/apps/create/apply
+`apisecret`: The secret value associated with your Flickr API key.
+`permissions`:  1 = read, 2 = read + write, or 3 = read + write + delete.
+
+This will prompt you to visit a URL on flickr that gives your FlickrMirror instance access to your data with the permissions you indicated, authorising of which will write your user information to a user store file for future use by the FlickrMirror.
+
+At this point your FlickrMirror will run, but it won't have any data to show, so next up you'll want to downsync your data.
+
+### running: downsync
 
 ```
 $> node app --downsync
@@ -34,17 +42,25 @@ $> node app --downsync
 
 This builds a `./data` dir with an `image` subdir for your images, and an `ia` subdir for the Flickr information architecture.
 
-Note: This will open a browser on first use, for you to authorise the application, using your API key, to access your Flickr data. Authorising will give you a code like "123-456-789", input that number (with dashes) in the prompt and then hit enter to continue.
+#### Downsyncing with multiple users
 
-Also make sure to copey over the generated enviroment variables to the .env file.
+To downsync a specific user when you have multiple users registered on your FlickrMirror, use:
 
-## running: locally off the downsynced data
+```
+$> node app --downsync --user=UserName
+```
+
+## running locally off the downsynced data
 
 ```
 $> node app
 ```
 
-This will run a server with a minimal Flickr-alike server on your own computer. If you open your browser and tell it to go to `http://localhost:3000`, you should see your photos.
+This will run a server with a minimal Flickr-alike server on your own computer. If you open your browser and tell it to go to `http://localhost:3000` (unless you changed the `PORT` environment variable, of course), you should see your photos.
+
+## Adding users
+
+If you want to add more users to your flickrmirror (say you're running the mirror for your friends or family members) then these can sign up using the `http://.../signup` link. Note that signing up does **not** downsync their data, so after someone signs up, they still need to ask you to do a downsync for them. This may change in future versions, but right now signup is unrestricted, so automatically downsyncing would be rather not-nice towards you as FlickrMirror operator.
 
 # Notable packages used
 

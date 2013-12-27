@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% include "blocks/filmstrip.html" %}
+  <script src="/js/stripnavigation.js"></script>
+
+  <div class="content">
+
+    <div class="right side">
+      <a class="recentlink" href="/{{user}}/recent">most recent batch</a><hr>
+      {% if collection_keys.length > 0 %}
+        {% for key in collection_keys %}
+        {% set collection = collections[key] %}
+        {% include "blocks/content/stream_collection.html" %}
+        {% endfor %}
+      {% else %}
+        {% for key in photoset_keys.slice(0,8) %}
+        {% set photoset = photosets[key] %}
+        {% include "blocks/content/stream_set.html" %}
+        {% endfor %}
+      {% endif %}
+      <hr><a class="moresets" href="/{{user}}/sets">view all sets</a>
+    </div>
+
+    <div class="stream">
+    	{% for key in photo_keys.slice(start, end) %}
+      {% set photo = photos[key] %}
+      {% include "blocks/content/stream_photo.html" %}
+      {% endfor %}
+      {% include "blocks/pages.html" %}
+    </div>
+  </div>
+
+  {# <script src="/js/photodescriptions.js"></script> #}
+{% endblock %}

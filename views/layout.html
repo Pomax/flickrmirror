@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{ user }}'s photographs</title>
+    <title>{% if user %}{{ user }}'s photographs{% else %}FlickrMirror{% endif %}</title>
     <link rel="stylesheet" href="/stylesheets/screen.css">
     {% if not notfound %}
     {% include "blocks/opengraph.html" %}

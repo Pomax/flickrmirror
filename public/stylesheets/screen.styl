@@ -1,28 +1,33 @@
-html. body {
+html, body {
   margin: 0
   padding: 0
   background: red
+}
+
+html {
   height: 100%
-  font-size: 10px;
-  line-height: 10px;
 }
 
 body {
-  margin: 0
-  padding: 0
+  position: relative
   background: white
+  min-height: 100%
+  margin-bottom: -2em;
 }
 
 .header {
-  position: relative;
+  position: relative
   border-bottom: 1px solid black
+  background: white
 
   color: #0063c8
   h1 {
     font-size: 300%
     line-height: 1em
+    margin: 0
     margin-bottom: -0.1em
     margin-left: 0.2em
+    padding-top: 1em
     font-family: helvetica
   }
   .highlight {
@@ -40,7 +45,7 @@ body {
   .accountlink {
     position absolute;
     display: block;
-    top: 1.5em;
+    top: 0.5em;
     right: 10px;
   }
 }
@@ -50,6 +55,8 @@ body {
   margin: auto
   position: relative
   text-align: center
+  background: white
+  padding-bottom: 2em
   .photo {
     width: 74%
   }
@@ -123,12 +130,14 @@ body {
     position: relative
     display: inline-block
     width: 240px
-//    height: 300px
     height: 400px
     vertical-align: top
     text-overflow: ellipsis
     overflow: hidden
     margin: 1em
+    .owner {
+      font-style: italic;
+    }
     figure {
       margin: 0
       h4 {
@@ -150,7 +159,6 @@ body {
     p {
       text-align: justify
     }
-///*
     footer {
       position: absolute
       bottom: 0
@@ -159,22 +167,9 @@ body {
       background: white
       box-shadow: 0 0 60px 50px white
     }
-//*/
     .links {
       font-size: 70%
     }
-/*
-    .description {
-      display: block
-      position: relative
-      z-index: 10
-      background: white
-      border: 1px solid grey
-      padding: 0 10px
-      margin-top: -3.5em;
-      min-height: 100px;
-    }
-*/
   }
   .pages {
     list-style: none
@@ -324,10 +319,13 @@ body {
 
 .footernotice {
   border-top: 1px solid black
-  padding-top: 0.5em
   background: #f4f4f4
   line-height: 2em
   text-align: center
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
 }
 
 .collection {
@@ -398,6 +396,57 @@ body {
     }
     img {
       border: 1px solid #333
+    }
+  }
+}
+
+form[action='/signup'] {
+  formset {
+    display: block
+    label, input {
+      width: 25em
+      display: inline-block
+    }
+  }
+  input[type=submit] {
+    display: block
+    margin: 0.5em
+  }
+}
+
+.searchbox {
+  display: inline-block
+  position: absolute
+  top: 0.5em
+  right: 0.5em
+}
+
+.userbox {
+  display: inline-block
+  font-family: Arial
+  font-weight: 900
+  margin: 0.5em
+  border: 1px solid grey
+  padding: 0.5em
+  h2 {
+    font-size: 300%
+    margin: 0.5em 0
+  }
+  div {
+    display: inline-block
+    padding: 0.5em
+    margin: 0.5em
+    background: grey
+    color: white
+    text-shadow: 2px 2px black
+    span {
+      display: block
+      font-size: 300%
+    }
+    a {
+      font-size: 100%
+      color: white
+      text-decoration: none
     }
   }
 }

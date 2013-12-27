@@ -1,0 +1,8 @@
+    <div class="accountlink">
+      {% if ownpage %}
+      <a href="/{{ user }}/profile">my settings</a>
+      {% endif %}
+      <button id="login"{% if authenticated or ownpage %} style="display:none"{% endif %}>login</button>
+      <button id="logout"{% if not authenticated %} style="display:none"{% endif %}>logout</button>
+    </div>
+    <script src="/js/login.js"></script>
