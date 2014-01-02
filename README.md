@@ -24,11 +24,11 @@ Also, if you do not have a Flickr API key, you can trivially get a non-commercia
 
 Once you've cloned and copied the environment file, run `node app`, which will register it has never been run before, and will ask you to input some data so that it can set up your first user account. It will ask you for the following values:
 
-`username`: Your human readable username. Not the ...@... one, unless that's the only one you have.
-`email`: The flickrmirror user login is based on Persona, so whatever email address you use for that, use that. However, if you do not intend to make use of the user system, you can fill in any old random value.
-`apikey`: Your personal Flickr API key. If you don't have one, get one for free over at http://www.flickr.com/services/apps/create/apply
-`apisecret`: The secret value associated with your Flickr API key.
-`permissions`:  1 = read, 2 = read + write, or 3 = read + write + delete.
+* `username`: Your human readable username. Not the ...@... one, unless that's the only one you have.
+* `email`: The flickrmirror user login is based on Persona, so whatever email address you use for that, use that. However, if you do not intend to make use of the user system, you can fill in any old random value.
+* `apikey`: Your personal Flickr API key. If you don't have one, get one for free over at http://www.flickr.com/services/apps/create/apply
+* `apisecret`: The secret value associated with your Flickr API key.
+* `permissions`:  1 = read, 2 = read + write, or 3 = read + write + delete.
 
 This will prompt you to visit a URL on flickr that gives your FlickrMirror instance access to your data with the permissions you indicated, authorising of which will write your user information to a user store file for future use by the FlickrMirror.
 
