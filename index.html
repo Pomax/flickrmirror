@@ -33,35 +33,24 @@
       <section>
         <h3>set up an .env file</h3>
         <pre>$:flickrmirror-master> copy env.dist .env</pre>
-        <p>open up this <code>.env</code> file, and drop in your Flickr API key and secret.</p>
-        <p>You can also fill in the screen name you want to use, but this is used only once the mirror has been set up, and isn't technically used for fetching data from Flickr.</p>
       </section>
 
       <section>
         <h3>first-time run</h3>
+        <pre>$:flickrmirror-master> node app</pre>
+        <p>This will guide you through the first-time user registration process. Fill in your human-readable
+          username, an email adress that you use for Persona (if you use one) or otherwise just a valid
+          email address that you use, and your Flickr API key and secret. You also get to choose the level
+          of permission the Flickr Mirror will have: read only, read and write, or read-write-delete
+          permissions. After filling these in, you will be prompted to open a URL in your browser
+          so that you can authorise the app with your chosen permissions. Copy the authentication code
+          over to the installer, and it should add your user information as first user, then run the
+          Flickr Mirror.</p>
+        <p>Of course, it won't have anything to show yet, so shut it down using ctrl-c, and then perform
+          a downsync step:</p>
+
+        <h3>first-time downsyncing</h3>
         <pre>$:flickrmirror-master> node app --downsync</pre>
-        <p>This will start up the downsycn process, but the app (with your API key, so really YOUR app)
-        now needs to be authorised to access all your data, so it will pop up a browser for you to
-        allow it access, and will wait for you to input your validation code:</p>
-        <pre>{ oauth_callback_confirmed: 'true',
-  oauth_token: '1234567890123456-7890123456789012',
-  oauth_token_secret: '1234567890123456' }
-prompt: oauth_verifier:
-</pre>
-        <p>the code is a numbers-with-dashes format; copy the code, and then paste it in your console.
-        This will resume the downsync process:</p>
-
-        <pre>prompt: oauth_verifier:  123-456-789
-
-Add the following variables to your environment:
-
-export FLICKR_USER_ID="12345678%40N12"
-export FLICKR_ACCESS_TOKEN="1234567890abcdef1-234567890abcdef1"
-export FLICKR_ACCESS_TOKEN_SECRET="1234567890abcdef"
-
-Fetching the Flickr API method information architecture.
-  fetching method signatures [========-------------------------] 10%
-</pre>
         <p>The downsync process will grab all the methods that Flickr exposes, first, after which
         it will start to download all your Flickr data. While it is doing so, it's a good idea to
         copy-paste those three export variables into your <code>.env</code> file.</p>
@@ -82,6 +71,12 @@ Fetching the Flickr API method information architecture.
         <pre>$:flickrmirror-master> npm update</pre>
         <p>You will <strong>NOT</strong> have to update your <code>.env</code> file, just leave that the way it was.</p>
         <p>Also? done. That's all you need to do to update to the latest version.</p>
+
+        <h2>Updating from 0.1.x to 0.2.x</h2>
+        <p>The codebase was significantly changed between versions 1 and 2, so if you
+          are upgrading from 1 to 2, you will have to set up a new user according to
+          the new user registration system, and you will need to recopy the <code>env.dist</code>
+          file to <code>.env</code> file.</p>
       </section>
 
       <h2>Let's serve that mirror up!</h2>
