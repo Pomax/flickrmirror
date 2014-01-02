@@ -1,0 +1,19 @@
+<form action="/signup" method="POST">
+	{% for name, field in validators %}
+  {% if not field.machinevalue %}
+  <formset>
+    <label for="signup-{{ name }}">{{ field.label }}</label>
+    {% if field.type == "select" %}
+    <select id="signup-{{ name }}" name="{{ name }}" required>
+      {% for option in field.options %}
+      <option name="{{ option }}" value="{{ option }}">{{ option }}</option>
+      {% endfor %}
+    </select>
+    {% else %}
+    <input id="signup-{{ name }}" name="{{ name }}" type="{{ field.type }}" required{% if field.pattern %} pattern="{{ field.pattern }}"{% endif %}{% if field.value %} value="{{ field.value }}"{% endif %}{% if field.hint%} title="{{ field.hint }}"{% endif %}{% if field.disabled %}disabled{% endif %}>
+    {% endif %}
+  </formset>
+  {% endif %}
+  {% endfor %}
+  <input type="submit" value="Sign up">
+</form>

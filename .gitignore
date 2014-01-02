@@ -4,3 +4,4 @@ data
 userdata
 .env
 logs/*
+.DS_Store

@@ -2,18 +2,17 @@
   "author": "Pomax",
   "title": "FlickrMirror",
   "description": "A Flickr mirroring and hosting app",
-  "version": "0.1.19",
+  "version": "0.2.0",
   "dependencies": {
     "argv": "0.0.2",
     "dateformat": "~1.0.6-1.2.3",
-    "express": "~3.3.4",
-    "express-persona": "0.0.9",
+    "express": "3.x.x",
+    "express-persona": "0.1.x",
     "flickrapi": "0.3.x",
     "habitat": "~0.4.2",
+    "nedb": "~0.9.3",
     "nunjucks": "~1.0.0",
-    "open": "0.0.4",
-    "prompt": "~0.2.11",
-    "request": "~2.25.0",
+    "prompt": "~0.2.12",
     "stylus": "~0.36.0"
   },
   "scripts": {

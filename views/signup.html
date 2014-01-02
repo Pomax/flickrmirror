@@ -1,5 +1,43 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h1>Hello there!</h1>
-  <p>Sign up for a flickrmirror!</p>
+  <h1>Sign up for a Flickr Mirror</h1>
+  {% if not authenticated %}
+  <p>In order to sign up for a Flickr Mirror, you need to log in to Persona first.
+  	Simply click the "login" button in the upper right, and follow the login
+    instructions.</p>
+
+  {% include "blocks/login.html" %}
+
+  <h2>What is Persona?</h2>
+
+  <p>Persona is a Mozilla-backed authentication system that works a little different
+  	from the usual user signin. Instead of registering a login and password with
+  	a website, you're telling the website "you only get to ask Persona whether I
+  	want to be treated as logged in for you". The website never gets your password,
+  	it only gets your email address, and then only if you told Persona that you wanted
+  	to be treated as "logged in" for specific websites.<p>
+
+  <h2>How does that work? Why is that secure?</h2>
+
+  <p>When you "log in" with Persona, you tell Persona that it should treat you
+  	as logged in for a specific website. Persona gives you a funky random string
+  	after you log in, and you give that to the server with the claim "I logged in,
+  	and this random string is proof of that". The website then gets to ask persona
+  	"I have this random string for this user; is it valid?", and Persona can either
+  	go "yes" or "no". If it says yes, then the website will treat you as logged in.
+  	This means the website never sees your password, so it can't accidentally reveal
+  	it when someone hacks the user database or the like. Furthermore, while Persona
+  	knows which website you just logged into, your email provider never gets told,
+  	so if you log in with your gmail account, google doesn't know <i>what</i> you
+  	just logged into, so you don't get tracked simply by logging in (if you ever
+  	logged into a site with your google or facebook account, google or facebook
+  	know exactly which sites you're logging into and can use that information to
+  	track and profile you).</p>
+
+  <script>
+    function onlogin(data) { window.location = window.location; }
+  </script>
+  {% else %}
+  {% include "blocks/signup_form.html" %}
+  {% endif %}
 {% endblock %}

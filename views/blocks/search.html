@@ -1,0 +1,16 @@
+<div class="searchbox">
+  <script>
+    function search() {
+      var value = document.getElementById('query').value;
+      window.location='/search/' + value.replace(/\s+/g,'+');
+    }
+    function checkforsearch(evt) {
+      evt = evt || window.event;
+      if(evt.keyCode === 10 || evt.keyCode === 13) {
+        search();
+      }
+    }
+  </script>
+  <input type="search" name="search" id="query" onkeydown="checkforsearch()">
+  <button onclick="search()">search</button>
+</div>

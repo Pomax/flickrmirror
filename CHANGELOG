@@ -1,0 +1,11 @@
+v0.2.0
+  * multi-user enabled. NOTE: this version is not backward compatible and
+    requires rebinding your user settings based on the new system rather
+    than using the `.env` enviroment file. (You still need an .env, but
+    it no longer contains user information, only app-specific settings).
+    Also note that you DO NOT have to downsync all your data, the way data
+    is stored has not changed, so after setting up the user information
+    the new version of FlickrMirror will host the same data as before.
+
+v0.1.x
+  * Everything before 0.2.0, really. There was no changelog until 0.2.0

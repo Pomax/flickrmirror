@@ -1,10 +1,12 @@
 {% if pagetype == undefined %}
+  {% if photo_keys %}
     <meta name="og:title" content="{{ user }}'s Flickr mirror">
     <meta name="og:description" content="{{ user }}'s Flickr mirror of http://flickr.com/{{ user }}— made with http://github.com/Pomax/flickrmiorror">
     {% for key in photo_keys.slice(start, end) %}
     {% set photo = photos[key] %}
     <meta name="og:image" content="/{{ user }}/images/square/medium/{{ photo.id }}.jpg">
     {% endfor %}
+  {% endif%}
 {% endif %}{% if pagetype == "photo" %}
     <meta name="og:title" content="{{ photo.title._content }}">
     <meta name="og:description" content="{{ photo.description._content | replace('"',"'") }}">
