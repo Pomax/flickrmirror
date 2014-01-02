@@ -18,8 +18,6 @@ Clone the repo, ensure you have Node installed (head over to http://nodejs.org i
 
 After that, copy the `env.dist` to `.env` (for instance with `copy env.dist .env`). Open this `.env` file and customise it based on what you need the app to do. There are only a handful of application settings, so the only setting that generally really matters is your port number.
 
-Also, if you do not have a Flickr API key, you can trivially get a non-commercial one for free by going to:
-
 ### First time run
 
 Once you've cloned and copied the environment file, run `node app`, which will register it has never been run before, and will ask you to input some data so that it can set up your first user account. It will ask you for the following values:
