@@ -40,7 +40,7 @@ At this point your FlickrMirror will run, but it won't have any data to show, so
 $> node app --downsync
 ```
 
-This builds a `./data` dir with an `image` subdir for your images, and an `ia` subdir for the Flickr information architecture.
+This builds a `./userdata` dir with a subdirectory for each user registered for your mirror, with each having an `image` subdir for thier image files, and an `ia` subdir for the Flickr information architecture.
 
 #### Downsyncing with multiple users
 
