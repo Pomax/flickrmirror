@@ -2,7 +2,7 @@
   "author": "Pomax",
   "title": "FlickrMirror",
   "description": "A Flickr mirroring and hosting app",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "dependencies": {
     "argv": "0.0.2",
     "dateformat": "~1.0.6-1.2.3",
