@@ -2,7 +2,7 @@
 
 module.exports = function(store, routeUtils, Flickr) {
 
-  return {
+  var handler = {
     // route binding is handled in a separate file
     bind: require("./routing.js"),
 
@@ -223,4 +223,6 @@ module.exports = function(store, routeUtils, Flickr) {
       return handler.index(req, res);
     }
   };
+
+  return handler;
 };
