@@ -41,7 +41,7 @@ module.exports = function(store, routeUtils, Flickr) {
      * Sign-up; not user at the moment
      */
     signup: function(req, res) {
-      var options = { validators: UserModel.validators };
+      var options = { validators: store.UserModel.validators };
       if(req.session.email) {
         options.validators.email.value = req.session.email;
         options.authenticated = true;
@@ -64,7 +64,7 @@ module.exports = function(store, routeUtils, Flickr) {
         var userdata = JSON.parse(JSON.stringify(result.options));
         userdata.email = req.session.email;
         userdata.user_name = req.body.user_name;
-        (new UserModel(userdata, store)).save();
+        (new store.UserModel(userdata, store)).save();
         // User signed up and saved. Take them back to the main page
         res.redirect("/");
       });
