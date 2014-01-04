@@ -10,7 +10,7 @@
     <a href="/{{ user }}/sets/{{ photoset.id }}">
       <h2>{{ photoset.title._content }}</h2>
       <img src="/{{ user }}/images/square/medium/{{ photoset.primary }}.jpg">
-      <p>{{ photoset.description._content }}</p>
+      <p>{{ photoset.description._content | nlbr }}</p>
     </a>
   </div>
   {% endfor %}

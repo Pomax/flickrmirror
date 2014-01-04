@@ -11,7 +11,7 @@
       <h2>{{ collection.title }}</h2>
       <img src="/{{ user }}{{ collection.iconlarge }}">
     </a>
-    <p>{{ collection.description }}</p>
+    <p>{{ collection.description | nlbr }}</p>
   </div>
   {% endfor %}
 </div>
