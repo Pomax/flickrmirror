@@ -99,7 +99,7 @@ module.exports = function(store, routeUtils, Flickr) {
         var ia = routeUtils.getIA(res.locals.userdir);
         if(!ia) { return res.redirect("/notfound"); }
         var user = getUser(res.locals.userdir);
-        var options = buildOptions(req, ia.photo_keys);
+        var options = routeUtils.buildOptions(req, ia.photo_keys);
         res.render("profile.html", ia.enrich(options).enrich(user));
       */
       res.render("profile.html");
@@ -183,7 +183,7 @@ module.exports = function(store, routeUtils, Flickr) {
       var ia = routeUtils.getIA(res.locals.user);
       var photosets = ia.photosets,
           photoset = photosets[res.locals.set],
-          options = buildOptions(req, photoset.photos);
+          options = routeUtils.buildOptions(req, photoset.photos);
       options.photoset = photoset;
       res.render("dedicated_set.html", ia.enrich(options));
       delete ia.photoset;
