@@ -10,10 +10,13 @@ module.exports = function(app, store, routeUtils) {
       res.locals.user = user;
       res.locals.userdir = routeUtils.findSpelling(user);
       // check authentication status
-      store.find(req.session.email, function(err, result) {
-        res.locals.ownpage = (result && result.user_name === user);
-        next();
-      });
+      if(req.session && req.session.email) {
+        store.find(req.session.email, function(err, result) {
+          res.locals.ownpage = (result && result.user_name === user);
+          next();
+        });
+      }
+      else { res.locals.ownpage = false; next(); }
     });
 
     // search terms
