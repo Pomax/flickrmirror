@@ -10,7 +10,7 @@
   </div>
 
   <div class="photos">
-  {% set photolist = photoset.photos.slice().reverse() %}
+  {% set photolist = photoset.photos.slice() %}
   {% for id in photolist.slice(start, end) %}
     {% set photo = photos[id] %}
     {% include "blocks/content/stream_photo.html" %}
