@@ -62,7 +62,7 @@ If you want to add more users to your flickrmirror (say you're running the mirro
 
 # Notable packages used
 
-* `flickrapi`, https://npmjs.org/package/flickrap, for Flickr syncing
+* `flickrapi`, https://npmjs.org/package/flickrapi, for Flickr syncing
 * `express`, http://expressjs.com, for easy HTTP server work
 * `nunjucks`, http://nunjucks.jlongster.com, for easy templating
 * `stylus`, http://learnboost.github.io/stylus, for easy stylesheets
