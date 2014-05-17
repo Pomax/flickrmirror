@@ -7,7 +7,7 @@
   <h1>most recent batch of uploaded photographs</h1>
 
   <div class="photos">
-  {% for photo in recent %}
+  {% for photo in recent.reverse() %}
   {% include "blocks/content/stream_photo.html" %}
   {% endfor %}
   </div>
