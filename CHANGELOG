@@ -1,3 +1,8 @@
+v0.2.6
+  * Downsyncing of private data added. NOTE: Private data will not show
+    up in the mirror unless you change the IA retrieval function to
+    take both a location and an options object `{ loadPrivate: true}`.
+
 v0.2.0
   * multi-user enabled. NOTE: this version is not backward compatible and
     requires rebinding your user settings based on the new system rather
