@@ -1,7 +1,7 @@
 <div class="stream entry">
   <figure>
   	{% if showuser %}<div class="owner">{{ user }}</div>{% endif %}
-    <a href="/{{ user }}/photos/{{ photo.id }}"><img src="/{{ user }}/images/small/{{ photo.id }}.jpg"></a>
+    <a href="/{{ user }}/photos/{{ photo.id }}"><img src="/{{ user }}/images/{% if pagetype == "filmstrip" %}original{% else %}small{% endif %}/{{ photo.id }}.{% if pagetype == "filmstrip" %}{{ photo.originalformat }}{% else %}jpg{% endif %}"></a>
     <figcaption>{{ photo.dates.taken }}</figcaption>
     <h4>{{ photo.title._content }}</h4>
   </figure>

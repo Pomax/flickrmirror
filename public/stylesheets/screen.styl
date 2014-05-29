@@ -12,7 +12,7 @@ body {
   position: relative
   background: white
   min-height: 100%
-  margin-bottom: -2em;
+  margin-bottom: -2em
 }
 
 .header {
@@ -170,35 +170,36 @@ body {
       font-size: 70%
     }
   }
-  .pages {
-    list-style: none
-    padding-bottom: 1em;
-    li {
-      display: inline-block
-      width: 20px
-      height: 20px
-      text-align: center
-      vertical-align: middle
-      border: 1px solid rgba(0,0,0,0.2)
-      color: #0063c8
-      a {
+}
+
+.pages {
+  list-style: none
+  padding-bottom: 1em;
+  li {
+    display: inline-block
+    width: 20px
+    height: 20px
+    text-align: center
+    vertical-align: middle
+    border: 1px solid rgba(0,0,0,0.2)
+    color: #0063c8
+    a {
+      color: inherit
+      text-decoration: none
+      &:visited {
         color: inherit
-        text-decoration: none
-        &:visited {
-          color: inherit
-        }
       }
-      &.current {
-        font-weight: bold
-        color: #ff0084
-      }
-      &:hover {
-        background: #0063dc
-        color: white
-      }
-      &.noborder {
-        border: none
-      }
+    }
+    &.current {
+      font-weight: bold
+      color: #ff0084
+    }
+    &:hover {
+      background: #0063dc
+      color: white
+    }
+    &.noborder {
+      border: none
     }
   }
 }
@@ -328,7 +329,22 @@ body {
   right: 0
 }
 
-.collection {
+.collection header {
+  margin: 1em
+  font-size: 225%
+  h1 {
+    font-family: Arial
+    font-size: inherit
+    color: #0063c8
+    margin-bottom: -0.5em
+  }
+  a {
+    font-size: 50%
+    color: #ff0084
+  }
+}
+
+.collection, .gallery {
   text-align: center
   .collection_set {
     display: inline-block
@@ -337,6 +353,39 @@ body {
     vertical-align: top
     overflow: hidden
     text-align: left
+  }
+  .gallery_set {
+    border: 1em solid #292929
+    border-bottom-width: 3em
+
+    img {
+      border: 1px solid black
+    }
+    .set_description {
+      text-align: center
+      background: #ff0084
+      padding: 1em
+      color: white
+      font-family: arial
+      font-size: 110%
+      margin-bottom: 1em
+      p {
+        width: 60%
+        margin: auto
+        text-align: justify
+        min-width: 400px
+        font-family: times
+      }
+      img {
+        width: 300px
+        margin-top: 2em
+      }
+    }
+    .stream.entry {
+      display: inline-block;
+      width: 400px;
+      vertical-align: top;
+    }
   }
   div.thumbnails {
     width: 112px

@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html{% if pagetype %} data-type="{{ pagetype }}"{% endif %}>
   <head>
     <meta charset="utf-8">
     <title>{% if user %}{{ user }}'s photographs{% else %}FlickrMirror{% endif %}</title>

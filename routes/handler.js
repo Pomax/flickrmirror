@@ -7,6 +7,11 @@ module.exports = function(store, routeUtils, Flickr) {
     bind: require("./routing.js"),
 
     /**
+     * filmstrip routes
+     */
+    filmstrip: require("./filmstrip")(store, routeUtils, Flickr),
+
+    /**
      * generic index page
      */
     index: function(req, res) {
@@ -215,6 +220,21 @@ module.exports = function(store, routeUtils, Flickr) {
     },
 
     /**
+     * Collection-as-gallery view
+     */
+    gallery: function(req, res) {
+      if(!res.locals.user) { return res.redirect("/notfound"); }
+      var ia = routeUtils.getIA(res.locals.user);
+      if(!ia) { return res.redirect("/notfound"); }
+      var collection = ia.collections[res.locals.collection];
+      res.render("collection_gallery.html", ia.enrich({
+        collection: collection
+      }));
+      delete ia.collection;
+    },
+
+
+    /**
      * Reload a user's ia from the browser
      */
     reload: function(req, res) {
@@ -223,6 +243,7 @@ module.exports = function(store, routeUtils, Flickr) {
       return handler.index(req, res);
     }
   };
+
 
   return handler;
 };

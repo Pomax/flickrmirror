@@ -1,0 +1,73 @@
+{% set pagetype = "filmstrip" %}
+{% extends "layout.html" %}
+
+{% block body %}
+<link rel="stylesheet" href="/stylesheets/filmstrip.css">
+
+{% set photo_keys = filmstrip %}
+{% include "blocks/filmstrip.html" %}
+
+<div class="gallery">
+
+  <h1>{{ collection.title }}</h1>
+
+  <div class="photos">
+  {% for id in filmstrip.slice(start, end) %}
+    {% set photo = photos[id] %}
+    {% include "blocks/content/stream_photo.html" %}
+  {% endfor %}
+  </div>
+</div>
+
+<script>(function() {
+
+  var list = document.querySelectorAll(".gallery .photos .stream.entry");
+  list = Array.prototype.slice.call(list);
+
+  var query = window.location.search.replace("?",'').split("&");
+  var idx = query.indexOf("p=1") > -1 ? list.length-1 : 0;
+
+  var prevpage = document.createElement("a");
+  prevpage.href = "?page={{ page - 1 }}&p=1";
+  var nextpage = document.createElement("a");
+  nextpage.href = "?page={{ page + 1 }}";
+  var strip = document.querySelectorAll(".filmstrip a img");
+
+  function mark() {
+    list[idx].classList.add("selected");
+    strip[idx].classList.add("selected");
+  }
+
+  function unmark() {
+    list[idx].classList.remove("selected");
+    strip[idx].classList.remove("selected");
+  }
+
+  function next() {
+    unmark();
+    idx++;
+    // go to next page.
+    if(idx > list.length -1) { return nextpage.click(); }
+    mark();
+  }
+
+  function prev() {
+    unmark();
+    idx--;
+    if(idx < 0) { return prevpage.click(); }
+    mark();
+  }
+
+  document.addEventListener("keydown", function(evt) {
+    switch(evt.which) {
+      case 37: return prev();
+      case 39: return next();
+    }
+  });
+  mark();
+
+  document.body.focus();
+
+}());</script>
+
+{% endblock %}

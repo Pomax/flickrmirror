@@ -3,7 +3,11 @@
 
 {% block body %}
 <div class="collection">
-  <h1>{{ collection.title }}</h1>
+  <header>
+    <h1>{{ collection.title }}</h1>
+    <a href="/{{ user }}/filmstrip/collection/{{ collection.id }}">view as film strip</a>
+  </header>
+
   {% for set in collection.set  %}
   <div class="collection_set">
 	  {% set photoset = photosets[set.id] %}

@@ -49,6 +49,7 @@ module.exports = function(app, store, routeUtils) {
   app.get("/search/:searchterm",            this.search);
 
   app.get('/:user',                         this.user);
+  app.get('/:user/reload',                  this.reload);
   app.get('/:user/profile',                 this.profile);
   app.get('/:user/recent',                  this.recent);
   app.get('/:user/photos/:photo',           this.photo);
@@ -60,6 +61,8 @@ module.exports = function(app, store, routeUtils) {
   app.get('/:user/collections',             this.collections);
   app.get('/:user/collections/:collection', this.collection);
 
-  app.get('/:user/reload',                  this.reload);
+  app.get('/:user/filmstrip/set/:set',               this.filmstrip.set);
+  app.get('/:user/filmstrip/collection/:collection', this.filmstrip.collection);
+
 
 };
