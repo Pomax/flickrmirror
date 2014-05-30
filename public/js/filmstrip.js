@@ -5,7 +5,7 @@
 
   var query = window.location.search.replace("?",'').split("&");
   var page = query.filter(function(e) { return e.indexOf("page=") > -1; });
-  page = page.length > 0 ? page[0].split("=")[1] : 1;
+  page = parseInt(page.length > 0 ? page[0].split("=")[1],10) : 1;
   var idx = query.indexOf("p=1") > -1 ? list.length-1 : 0;
 
   var prevpage = document.createElement("a");
