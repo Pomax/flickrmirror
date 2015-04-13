@@ -9,7 +9,7 @@
     "express": "3.x.x",
     "express-persona": "0.1.x",
     "flickrapi": "0.3.x",
-    "habitat": "~0.4.2",
+    "habitat": "^3.1.2",
     "nedb": "~0.9.3",
     "nunjucks": "~1.0.0",
     "prompt": "~0.2.12",

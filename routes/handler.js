@@ -149,7 +149,7 @@ module.exports = function(store, routeUtils, Flickr) {
         }
       }
       res.render("dedicated_photo.html", ia.enrich({
-        hostname: process.env.HOSTNAME || req.host,
+        hostname: process.env.HOSTNAME,
         photo: photo
       }));
       delete ia.photo;
