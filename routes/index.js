@@ -8,7 +8,7 @@ module.exports = function(app, env, Flickr) {
 
   var store = require("../lib/datastore.js");
   var routeUtils = require("./routeutils.js")(env, store, Flickr);
-  var handler = require("./handler.js")(store, routeUtils, Flickr);
+  var handler = require("./handler.js")(env, store, routeUtils, Flickr);
 
   require("express-persona")(app, { audience: domainURL });
   handler.bind(app, store, routeUtils);

@@ -1,9 +1,10 @@
 // FIXME: organise routing on a "per page" basis instead of routes vs. route handling
 
-module.exports = function(store, routeUtils, Flickr) {
+module.exports = function(env, store, routeUtils, Flickr) {
 
   var handler = {
     // route binding is handled in a separate file
+    bind: require("./routing.js"),
     bind: require("./routing.js"),
 
     /**
@@ -149,7 +150,7 @@ module.exports = function(store, routeUtils, Flickr) {
         }
       }
       res.render("dedicated_photo.html", ia.enrich({
-        hostname: process.env.HOSTNAME,
+        hostname: env.get("hostname"),
         photo: photo
       }));
       delete ia.photo;
