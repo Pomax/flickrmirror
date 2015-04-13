@@ -122,7 +122,7 @@ module.exports = function(env, store, Flickr) {
         navpages.push(n);
       }
       return {
-        hostname: req.host,
+        hostname: process.env.HOSTNAME || req.host,
         page: page,
         start: start,
         startpage: startpage,
