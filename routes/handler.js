@@ -31,7 +31,9 @@ module.exports = function(env, store, routeUtils, Flickr) {
             collectioncount: ia.collection_keys.length
           });
         });
-        res.render("index.html");
+        res.render("index.html", {
+          hostname: env.get("hostname")
+        });
       });
     },
 
@@ -52,6 +54,7 @@ module.exports = function(env, store, routeUtils, Flickr) {
         options.validators.email.value = req.session.email;
         options.authenticated = true;
       }
+      options.hostname = env.get("hostname");
       res.render("signup.html", options);
     },
 
@@ -95,6 +98,7 @@ module.exports = function(env, store, routeUtils, Flickr) {
       if(!ia) { return res.redirect("/notfound"); }
       var options = routeUtils.buildOptions(req, ia.photo_keys);
       options.recent = routeUtils.getRecentPhotos(ia, req, res);
+      options.hostname = env.get("hostname")
       res.render("user.html", ia.enrich(options));
     },
 
@@ -110,7 +114,9 @@ module.exports = function(env, store, routeUtils, Flickr) {
         var options = routeUtils.buildOptions(req, ia.photo_keys);
         res.render("profile.html", ia.enrich(options).enrich(user));
       */
-      res.render("profile.html");
+      res.render("profile.html", {
+        hostname: env.get("hostname")
+      });
     },
 
     /**
@@ -119,7 +125,8 @@ module.exports = function(env, store, routeUtils, Flickr) {
     recent: function(req, res) {
       if(!res.locals.user) { return res.redirect("/notfound"); }
       res.render("recent.html", {
-        recent: routeUtils.getRecentPhotos(false, req, res)
+        recent: routeUtils.getRecentPhotos(false, req, res),
+        hostname: env.get("hostname")
       });
     },
 
@@ -168,6 +175,7 @@ module.exports = function(env, store, routeUtils, Flickr) {
       var photos = ia.photos,
           photo = photos[res.locals.photo];
       res.render("lightbox.html", ia.enrich({
+        hostname: env.get("hostname"),
         photo: photo
       }));
       delete ia.photo;
@@ -180,6 +188,7 @@ module.exports = function(env, store, routeUtils, Flickr) {
       if(!res.locals.user) { return res.redirect("/notfound"); }
       var ia = routeUtils.getIA(res.locals.user);
       if(!ia) { return res.redirect("/notfound"); }
+      ia.hostname = env.get("hostname");
       res.render("all_sets.html", ia);
     },
 
@@ -193,6 +202,7 @@ module.exports = function(env, store, routeUtils, Flickr) {
           photoset = photosets[res.locals.set],
           options = routeUtils.buildOptions(req, photoset.photos);
       options.photoset = photoset;
+      options.hostname = env.get("hostname");
       res.render("dedicated_set.html", ia.enrich(options));
       delete ia.photoset;
     },
@@ -204,6 +214,7 @@ module.exports = function(env, store, routeUtils, Flickr) {
       if(!res.locals.user) { return res.redirect("/notfound"); }
       var ia = routeUtils.getIA(res.locals.user);
       if(!ia) { return res.redirect("/notfound"); }
+      ia.hostname = env.get("hostname");
       res.render("all_collections.html", ia);
     },
 
@@ -217,7 +228,8 @@ module.exports = function(env, store, routeUtils, Flickr) {
       var collections = ia.collections,
           collection = collections[res.locals.collection];
       res.render("dedicated_collection.html", ia.enrich({
-        collection: collection
+        collection: collection,
+        hostname: env.get("hostname")
       }));
       delete ia.collection;
     },
@@ -231,7 +243,8 @@ module.exports = function(env, store, routeUtils, Flickr) {
       if(!ia) { return res.redirect("/notfound"); }
       var collection = ia.collections[res.locals.collection];
       res.render("collection_gallery.html", ia.enrich({
-        collection: collection
+        collection: collection,
+        hostname: env.get("hostname")
       }));
       delete ia.collection;
     },
