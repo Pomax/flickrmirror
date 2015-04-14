@@ -81,7 +81,9 @@ module.exports = function(env, store, routeUtils, Flickr) {
      */
     search: function(req, res) {
       // actual searching is done when the param is examined
-      res.render("search.html");
+      res.render("search.html", {
+        hostname: env.get("hostname")
+      });
     },
 
     /**
